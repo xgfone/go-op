@@ -20,6 +20,8 @@ type Oper interface {
 	Operation() (op, key string, value interface{})
 }
 
+var _ Oper = OpFunc(nil)
+
 // OpFunc is an operation function.
 type OpFunc func() (op, key string, value interface{})
 

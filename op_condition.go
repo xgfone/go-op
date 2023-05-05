@@ -46,9 +46,11 @@ const (
 	CondOpGreaterEqualKey = "GreaterEqualKey"
 )
 
-// Condition represents a condition operation.
+// Condition represents a condition operation, which contains a meaningless
+// method condition that has no arguments and returns and is just used to
+// distinguish it from Setter.
 type Condition interface {
-	condition() // Meaningless, just distinguish Condition from Setter.
+	condition()
 	Oper
 }
 

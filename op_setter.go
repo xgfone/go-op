@@ -25,9 +25,11 @@ const (
 	SetOpSet = "Set"
 )
 
-// Setter represents a setter operation.
+// Setter represents a setter operation, which contains a meaningless method
+// setter that has no arguments and returns and is just used to distinguish
+// it from Condition.
 type Setter interface {
-	setter() // Meaningless, just distinguish Setter from Condition.
+	setter()
 	Oper
 }
 
