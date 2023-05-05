@@ -40,13 +40,13 @@ func main() {
 	buildUpdateSQL := func(table string, setters []op.Setter, conds []op.Condition) string {
 		_setters := make([]string, len(setters))
 		for i, setter := range setters {
-			_op, key, value := setter.Setter()
+			_op, key, value := setter.Operation()
 			_setters[i] = op.GetConverter("sql", _op)("sql", _op, key, value).(string)
 		}
 
 		_conds := make([]string, len(conds))
 		for i, cond := range conds {
-			_op, key, value := cond.Condition()
+			_op, key, value := cond.Operation()
 			_conds[i] = op.GetConverter("sql", _op)("sql", _op, key, value).(string)
 		}
 
