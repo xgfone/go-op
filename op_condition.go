@@ -48,17 +48,13 @@ const (
 
 // Condition represents a condition operation.
 type Condition interface {
-	Condition() (op, key string, value interface{})
+	condition() // Meaningless, just distinguish Condition from Setter.
 	Oper
 }
 
 var _ Condition = Op{}
 
-// Condition implements the interface Condition to return the condition
-// operation information, which is equal to the method Operation.
-func (o Op) Condition() (op, key string, value interface{}) {
-	return o.Op, o.Key, o.Val
-}
+func (o Op) condition() {}
 
 /// ---------------------------------------------------------------------- ///
 

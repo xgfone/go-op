@@ -78,13 +78,13 @@ func ExampleRegisterConverter() {
 	buildUpdateSQL := func(table string, setters []Setter, conds []Condition) string {
 		_setters := make([]string, len(setters))
 		for i, setter := range setters {
-			op, key, value := setter.Setter()
+			op, key, value := setter.Operation()
 			_setters[i] = GetConverter("sql", op)("sql", op, key, value).(string)
 		}
 
 		_conds := make([]string, len(conds))
 		for i, cond := range conds {
-			op, key, value := cond.Condition()
+			op, key, value := cond.Operation()
 			_conds[i] = GetConverter("sql", op)("sql", op, key, value).(string)
 		}
 

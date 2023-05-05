@@ -27,17 +27,13 @@ const (
 
 // Setter represents a setter operation.
 type Setter interface {
-	Setter() (op, key string, value interface{})
+	setter() // Meaningless, just distinguish Setter from Condition.
 	Oper
 }
 
 var _ Setter = Op{}
 
-// Setter implements the interface Setter to return the setter
-// operation information, which is equal to the method Operation.
-func (o Op) Setter() (op, key string, value interface{}) {
-	return o.Op, o.Key, o.Val
-}
+func (o Op) setter() {}
 
 /// ---------------------------------------------------------------------- ///
 

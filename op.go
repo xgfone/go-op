@@ -17,25 +17,29 @@ package op
 
 // Oper is a common operation interface.
 type Oper interface {
-	GetValue() interface{}
-	GetKey() string
-	GetOp() string
+	Operation() (op, key string, value interface{})
 }
+
+// OpFunc is an operation function.
+type OpFunc func() (op, key string, value interface{})
+
+// Operation implements the interface Oper.
+func (f OpFunc) Operation() (op, key string, value interface{}) { return f() }
 
 // ContainsKey reports whether the operations contains the key.
 func ContainsKey[S ~[]E, E Oper](ops S, key string) bool {
 	for _, op := range ops {
-		if op.GetKey() == key {
+		if _, _key, _ := op.Operation(); _key == key {
 			return true
 		}
 	}
 	return false
 }
 
-// Contains reports whether the operations contains the operation by the key,
-// which is equal to ContainsKey(ops, op.GetKey()).
+// Contains reports whether the operations contains the operation by the key.
 func Contains[S ~[]E1, E1, E2 Oper](ops S, op E2) bool {
-	return ContainsKey(ops, op.GetKey())
+	_, key, _ := op.Operation()
+	return ContainsKey(ops, key)
 }
 
 /// ----------------------------------------------------------------------- ///
@@ -56,15 +60,6 @@ func Key(key string) Op { return NewOp("", key, nil) }
 func NewOp(op, key string, value interface{}) Op {
 	return Op{Op: op, Key: key, Val: value}
 }
-
-// GetOp implements the interface Op to return the operation.
-func (o Op) GetOp() string { return o.Op }
-
-// GetKey implements the interface Op to return the operation key.
-func (o Op) GetKey() string { return o.Key }
-
-// GetValue implements the interface Op to return the operation value.
-func (o Op) GetValue() interface{} { return o.Val }
 
 // Operation returns the condition operation information.
 func (o Op) Operation() (op, key string, value interface{}) {
