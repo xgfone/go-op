@@ -42,7 +42,7 @@ func ExampleContains() {
 	fmt.Println(Contains(ops, op2))
 
 	// For the struct Op
-	opss := []Oper{Eq("key1", "value1"), Set("key2", "value2")}
+	opss := []Op{Eq("key1", "value1"), Set("key2", "value2")}
 	ops1 := NotEq("nok", "value1")
 	ops2 := Add("key2", 123)
 	fmt.Println(Contains(opss, ops1))
