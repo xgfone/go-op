@@ -58,74 +58,74 @@ func (o Op) condition() {}
 
 /// ---------------------------------------------------------------------- ///
 
-// Equal is equal to NewOp(CondOpEqual, key, value).
+// Equal is equal to New(CondOpEqual, key, value).
 func Equal(key string, value interface{}) Op {
-	return NewOp(CondOpEqual, key, value)
+	return New(CondOpEqual, key, value)
 }
 
-// NotEqual is equal to NewOp(CondOpNotEqual, key, value).
+// NotEqual is equal to New(CondOpNotEqual, key, value).
 func NotEqual(key string, value interface{}) Op {
-	return NewOp(CondOpNotEqual, key, value)
+	return New(CondOpNotEqual, key, value)
 }
 
-// Less is equal to NewOp(CondOpLess, key, value).
+// Less is equal to New(CondOpLess, key, value).
 func Less(key string, value interface{}) Op {
-	return NewOp(CondOpLess, key, value)
+	return New(CondOpLess, key, value)
 }
 
-// LessEqual is equal to NewOp(CondOpLessEqual, key, value).
+// LessEqual is equal to New(CondOpLessEqual, key, value).
 func LessEqual(key string, value interface{}) Op {
-	return NewOp(CondOpLessEqual, key, value)
+	return New(CondOpLessEqual, key, value)
 }
 
-// Greater is equal to NewOp(CondOpGreater, key, value).
+// Greater is equal to New(CondOpGreater, key, value).
 func Greater(key string, value interface{}) Op {
-	return NewOp(CondOpGreater, key, value)
+	return New(CondOpGreater, key, value)
 }
 
-// GreaterEqual is equal to NewOp(CondOpGreaterEqual, key, value).
+// GreaterEqual is equal to New(CondOpGreaterEqual, key, value).
 func GreaterEqual(key string, value interface{}) Op {
-	return NewOp(CondOpGreaterEqual, key, value)
+	return New(CondOpGreaterEqual, key, value)
 }
 
-// In is equal to NewOp(CondOpIn, key, values).
+// In is equal to New(CondOpIn, key, values).
 func In(key string, values ...interface{}) Op {
-	return NewOp(CondOpIn, key, values)
+	return New(CondOpIn, key, values)
 }
 
-// NotIn is equal to NewOp(CondOpNotIn, key, values).
+// NotIn is equal to New(CondOpNotIn, key, values).
 func NotIn(key string, values ...interface{}) Op {
-	return NewOp(CondOpNotIn, key, values)
+	return New(CondOpNotIn, key, values)
 }
 
-// IsNull is equal to NewOp(CondOpIsNull, key, nil).
+// IsNull is equal to New(CondOpIsNull, key, nil).
 func IsNull(key string) Op {
-	return NewOp(CondOpIsNull, key, nil)
+	return New(CondOpIsNull, key, nil)
 }
 
-// IsNotNull is equal to NewOp(CondOpIsNotNull, key, nil).
+// IsNotNull is equal to New(CondOpIsNotNull, key, nil).
 func IsNotNull(key string) Op {
-	return NewOp(CondOpIsNotNull, key, nil)
+	return New(CondOpIsNotNull, key, nil)
 }
 
-// Like is equal to NewOp(CondOpLike, key, value).
+// Like is equal to New(CondOpLike, key, value).
 func Like(key string, value string) Op {
-	return NewOp(CondOpLike, key, value)
+	return New(CondOpLike, key, value)
 }
 
-// NotLike is equal to NewOp(CondOpNotLike, key, value).
+// NotLike is equal to New(CondOpNotLike, key, value).
 func NotLike(key string, value string) Op {
-	return NewOp(CondOpNotLike, key, value)
+	return New(CondOpNotLike, key, value)
 }
 
-// Between is equal to NewOp(CondOpBetween, key, []interface{}{lower, upper}).
+// Between is equal to New(CondOpBetween, key, []interface{}{lower, upper}).
 func Between(key string, lower, upper interface{}) Op {
-	return NewOp(CondOpBetween, key, []interface{}{lower, upper})
+	return New(CondOpBetween, key, []interface{}{lower, upper})
 }
 
-// NotBetween is equal to NewOp(CondOpNotBetween, key, []interface{}{lower, upper}).
+// NotBetween is equal to New(CondOpNotBetween, key, []interface{}{lower, upper}).
 func NotBetween(key string, lower, upper interface{}) Op {
-	return NewOp(CondOpNotBetween, key, []interface{}{lower, upper})
+	return New(CondOpNotBetween, key, []interface{}{lower, upper})
 }
 
 // Eq is short for Equal.
@@ -250,34 +250,34 @@ func (o Op) GtEq(value interface{}) Op {
 
 /// ---------------------------------------------------------------------- ///
 
-// EqualKey is equal to NewOp(CondOpEqualKey, key1, key2).
+// EqualKey is equal to New(CondOpEqualKey, key1, key2).
 func EqualKey(key1, key2 string) Op {
-	return NewOp(CondOpEqualKey, key1, key2)
+	return New(CondOpEqualKey, key1, key2)
 }
 
-// NotEqualKey is equal to NewOp(CondOpNotEqualKey, key1, key2).
+// NotEqualKey is equal to New(CondOpNotEqualKey, key1, key2).
 func NotEqualKey(key1, key2 string) Op {
-	return NewOp(CondOpNotEqualKey, key1, key2)
+	return New(CondOpNotEqualKey, key1, key2)
 }
 
-// LessKey is equal to NewOp(CondOpLessKey, key1, key2).
+// LessKey is equal to New(CondOpLessKey, key1, key2).
 func LessKey(key1, key2 string) Op {
-	return NewOp(CondOpLessKey, key1, key2)
+	return New(CondOpLessKey, key1, key2)
 }
 
-// LessEqualKey is equal to NewOp(CondOpLessEqualKey, key1, key2).
+// LessEqualKey is equal to New(CondOpLessEqualKey, key1, key2).
 func LessEqualKey(key1, key2 string) Op {
-	return NewOp(CondOpLessEqualKey, key1, key2)
+	return New(CondOpLessEqualKey, key1, key2)
 }
 
-// GreaterKey is equal to NewOp(CondOpGreaterKey, key1, key2).
+// GreaterKey is equal to New(CondOpGreaterKey, key1, key2).
 func GreaterKey(key1, key2 string) Op {
-	return NewOp(CondOpGreaterKey, key1, key2)
+	return New(CondOpGreaterKey, key1, key2)
 }
 
-// GreaterEqualKey is equal to NewOp(CondOpGreaterEqualKey, key1, key2).
+// GreaterEqualKey is equal to New(CondOpGreaterEqualKey, key1, key2).
 func GreaterEqualKey(key1, key2 string) Op {
-	return NewOp(CondOpGreaterEqualKey, key1, key2)
+	return New(CondOpGreaterEqualKey, key1, key2)
 }
 
 // EqualKey is equal to EqualKey(o.Key, otherKey).

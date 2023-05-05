@@ -37,39 +37,39 @@ func (o Op) setter() {}
 
 /// ---------------------------------------------------------------------- ///
 
-// Inc is equal to NewOp(SetOpInc, key, nil).
+// Inc is equal to New(SetOpInc, key, nil).
 func Inc(key string) Op {
-	return NewOp(SetOpInc, key, nil)
+	return New(SetOpInc, key, nil)
 }
 
-// Dec is equal to NewOp(SetOpDec, key, nil).
+// Dec is equal to New(SetOpDec, key, nil).
 func Dec(key string) Op {
-	return NewOp(SetOpDec, key, nil)
+	return New(SetOpDec, key, nil)
 }
 
-// Add is equal to NewOp(SetOpAdd, key, value).
+// Add is equal to New(SetOpAdd, key, value).
 func Add(key string, value interface{}) Op {
-	return NewOp(SetOpAdd, key, value)
+	return New(SetOpAdd, key, value)
 }
 
-// Sub is equal to NewOp(SetOpSub, key, value).
+// Sub is equal to New(SetOpSub, key, value).
 func Sub(key string, value interface{}) Op {
-	return NewOp(SetOpSub, key, value)
+	return New(SetOpSub, key, value)
 }
 
-// Mul is equal to NewOp(SetOpMul, key, value).
+// Mul is equal to New(SetOpMul, key, value).
 func Mul(key string, value interface{}) Op {
-	return NewOp(SetOpMul, key, value)
+	return New(SetOpMul, key, value)
 }
 
-// Div is equal to NewOp(SetOpDiv, key, value).
+// Div is equal to New(SetOpDiv, key, value).
 func Div(key string, value interface{}) Op {
-	return NewOp(SetOpDiv, key, value)
+	return New(SetOpDiv, key, value)
 }
 
-// Set is equal to NewOp(SetOpSet, key, value).
+// Set is equal to New(SetOpSet, key, value).
 func Set(key string, value interface{}) Op {
-	return NewOp(SetOpSet, key, value)
+	return New(SetOpSet, key, value)
 }
 
 // Inc is equal to Inc(o.Key).

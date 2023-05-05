@@ -53,11 +53,11 @@ type Op struct {
 	Val interface{}
 }
 
-// Key is equal to NewOp("", key, nil).
-func Key(key string) Op { return NewOp("", key, nil) }
+// Key is equal to New("", key, nil).
+func Key(key string) Op { return New("", key, nil) }
 
-// NewOp returns a new Op.
-func NewOp(op, key string, value interface{}) Op {
+// New returns a new Op.
+func New(op, key string, value interface{}) Op {
 	return Op{Op: op, Key: key, Val: value}
 }
 
