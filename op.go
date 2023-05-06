@@ -66,3 +66,15 @@ func New(op, key string, value interface{}) Op {
 
 // Operation returns the condition operation information.
 func (o Op) Operation() Op { return o }
+
+// WithKeyPrefix returns a new Op, which uses prefix as the prefix of the key.
+func (o Op) WithKeyPrefix(prefix string) Op {
+	o.Key = prefix + o.Key
+	return o
+}
+
+// WithKeySuffix returns a new Op, which uses suffix as the suffix of the key.
+func (o Op) WithKeySuffix(suffix string) Op {
+	o.Key += suffix
+	return o
+}
