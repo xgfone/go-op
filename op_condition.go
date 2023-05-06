@@ -48,15 +48,21 @@ const (
 
 // Condition represents a condition operation, which contains a meaningless
 // method condition that has no arguments and returns and is just used to
-// distinguish it from Setter.
+// distinguish it from Setter, like
+//
+//	condition()
 type Condition interface {
 	condition()
 	Oper
 }
 
-var _ Condition = Op{}
+var (
+	_ Condition = Op{}
+	_ Condition = OpFunc(nil)
+)
 
-func (o Op) condition() {}
+func (o Op) condition()     {}
+func (f OpFunc) condition() {}
 
 /// ---------------------------------------------------------------------- ///
 

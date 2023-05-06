@@ -27,15 +27,21 @@ const (
 
 // Setter represents a setter operation, which contains a meaningless method
 // setter that has no arguments and returns and is just used to distinguish
-// it from Condition.
+// it from Condition, like
+//
+//	setter()
 type Setter interface {
 	setter()
 	Oper
 }
 
-var _ Setter = Op{}
+var (
+	_ Setter = Op{}
+	_ Setter = OpFunc(nil)
+)
 
-func (o Op) setter() {}
+func (o Op) setter()     {}
+func (f OpFunc) setter() {}
 
 /// ---------------------------------------------------------------------- ///
 

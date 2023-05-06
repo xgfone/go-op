@@ -22,7 +22,8 @@ type Oper interface {
 
 var _ Oper = OpFunc(nil)
 
-// OpFunc is an operation function.
+// OpFunc is an operation function, which implements the interface Oper,
+// Setter and Condition.
 type OpFunc func() (op, key string, value interface{})
 
 // Operation implements the interface Oper.
@@ -48,7 +49,8 @@ func Contains[S ~[]E1, E1, E2 Oper](ops S, op E2) bool {
 
 var _ Oper = Op{}
 
-// Op represents an operation, which may be a condtion or Op.
+// Op represents an operation, which has implemented the interface Oper,
+// Setter and Condition.
 type Op struct {
 	Op  string
 	Key string
