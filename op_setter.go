@@ -37,11 +37,11 @@ type Setter interface {
 
 var (
 	_ Setter = Op{}
-	_ Setter = OpFunc(nil)
+	_ Setter = Func(nil)
 )
 
-func (o Op) setter()     {}
-func (f OpFunc) setter() {}
+func (o Op) setter()   {}
+func (f Func) setter() {}
 
 /// ---------------------------------------------------------------------- ///
 

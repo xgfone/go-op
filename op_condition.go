@@ -58,11 +58,11 @@ type Condition interface {
 
 var (
 	_ Condition = Op{}
-	_ Condition = OpFunc(nil)
+	_ Condition = Func(nil)
 )
 
-func (o Op) condition()     {}
-func (f OpFunc) condition() {}
+func (o Op) condition()   {}
+func (f Func) condition() {}
 
 /// ---------------------------------------------------------------------- ///
 

@@ -20,14 +20,14 @@ type Oper interface {
 	Operation() Op
 }
 
-var _ Oper = OpFunc(nil)
+var _ Oper = Func(nil)
 
-// OpFunc is an operation function, which implements the interface Oper,
+// Func is an operation function, which implements the interface Oper,
 // Setter and Condition.
-type OpFunc func() Op
+type Func func() Op
 
 // Operation implements the interface Oper.
-func (f OpFunc) Operation() Op { return f() }
+func (f Func) Operation() Op { return f() }
 
 // ContainsKey reports whether the operations contains the key.
 func ContainsKey[S ~[]E, E Oper](ops S, key string) bool {
