@@ -19,7 +19,7 @@ import "fmt"
 var converters = make(map[string]Converter)
 
 // Converter is used to convert an operation to other value.
-type Converter func(_type, op, key string, value interface{}) interface{}
+type Converter func(optype string, oper Oper) interface{}
 
 // RegisterConverter registers the converter of the operation belonging to the type.
 //

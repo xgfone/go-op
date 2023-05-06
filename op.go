@@ -17,22 +17,22 @@ package op
 
 // Oper is a common operation interface.
 type Oper interface {
-	Operation() (op, key string, value interface{})
+	Operation() Op
 }
 
 var _ Oper = OpFunc(nil)
 
 // OpFunc is an operation function, which implements the interface Oper,
 // Setter and Condition.
-type OpFunc func() (op, key string, value interface{})
+type OpFunc func() Op
 
 // Operation implements the interface Oper.
-func (f OpFunc) Operation() (op, key string, value interface{}) { return f() }
+func (f OpFunc) Operation() Op { return f() }
 
 // ContainsKey reports whether the operations contains the key.
 func ContainsKey[S ~[]E, E Oper](ops S, key string) bool {
 	for _, op := range ops {
-		if _, _key, _ := op.Operation(); _key == key {
+		if op.Operation().Key == key {
 			return true
 		}
 	}
@@ -41,8 +41,7 @@ func ContainsKey[S ~[]E, E Oper](ops S, key string) bool {
 
 // Contains reports whether the operations contains the operation by the key.
 func Contains[S ~[]E1, E1, E2 Oper](ops S, op E2) bool {
-	_, key, _ := op.Operation()
-	return ContainsKey(ops, key)
+	return ContainsKey(ops, op.Operation().Key)
 }
 
 /// ----------------------------------------------------------------------- ///
@@ -66,6 +65,4 @@ func New(op, key string, value interface{}) Op {
 }
 
 // Operation returns the condition operation information.
-func (o Op) Operation() (op, key string, value interface{}) {
-	return o.Op, o.Key, o.Val
-}
+func (o Op) Operation() Op { return o }

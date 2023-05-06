@@ -61,11 +61,12 @@ func ExampleContains() {
 
 func ExampleRegisterConverter() {
 	// The common converter.
-	convert := func(_, _, key string, value interface{}) interface{} {
-		if s, ok := value.(string); ok {
-			return fmt.Sprintf("`%s`='%s'", key, s)
+	convert := func(_ string, oper Oper) interface{} {
+		op := oper.(Op)
+		if s, ok := op.Val.(string); ok {
+			return fmt.Sprintf("`%s`='%s'", op.Key, s)
 		}
-		return fmt.Sprintf("`%s`=%v", key, value)
+		return fmt.Sprintf("`%s`=%v", op.Key, op.Val)
 	}
 
 	// Register the condition and setter converters.
@@ -78,14 +79,14 @@ func ExampleRegisterConverter() {
 	buildUpdateSQL := func(table string, setters []Setter, conds []Condition) string {
 		_setters := make([]string, len(setters))
 		for i, setter := range setters {
-			op, key, value := setter.Operation()
-			_setters[i] = GetConverter("sql", op)("sql", op, key, value).(string)
+			op := setter.Operation()
+			_setters[i] = GetConverter("sql", op.Op)("sql", op).(string)
 		}
 
 		_conds := make([]string, len(conds))
 		for i, cond := range conds {
-			op, key, value := cond.Operation()
-			_conds[i] = GetConverter("sql", op)("sql", op, key, value).(string)
+			op := cond.Operation()
+			_conds[i] = GetConverter("sql", op.Op)("sql", op).(string)
 		}
 
 		return fmt.Sprintf("UPDATE `%s` SET %s WHERE %s", table, strings.Join(_setters, ", "), strings.Join(_conds, " AND "))
