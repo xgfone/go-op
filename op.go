@@ -15,6 +15,8 @@
 // Package op provides a common operation about condition and setter.
 package op
 
+import "fmt"
+
 // Oper is a common operation interface.
 type Oper interface {
 	Operation() Op
@@ -83,4 +85,14 @@ func (o Op) KeyPrefix(prefix string) Op {
 func (o Op) KeySuffix(suffix string) Op {
 	o.Key += suffix
 	return o
+}
+
+// WithKey replaces the key with the new key.
+func (o Op) WithKey(key string) Op {
+	o.Key = key
+	return o
+}
+
+func (o Op) String() string {
+	return fmt.Sprintf("Op(key=%s, op=%s, value=%v)", o.Key, o.Op, o.Val)
 }
