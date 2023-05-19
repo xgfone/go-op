@@ -87,9 +87,21 @@ func (o Op) KeySuffix(suffix string) Op {
 	return o
 }
 
+// WithOp replaces the op with the new op.
+func (o Op) WithOp(op string) Op {
+	o.Op = op
+	return o
+}
+
 // WithKey replaces the key with the new key.
 func (o Op) WithKey(key string) Op {
 	o.Key = key
+	return o
+}
+
+// WithValue replaces the value with the new value.
+func (o Op) WithValue(value interface{}) Op {
+	o.Val = value
 	return o
 }
 
