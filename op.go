@@ -12,29 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package op provides a common operation about condition and setter.
+// Package op provides a common operation, such as Condition and Updater.
 package op
 
 import "fmt"
 
 // Oper is a common operation interface.
 type Oper interface {
-	Operation() Op
+	Op() Op
 }
 
-var _ Oper = Func(nil)
+type oper struct{ op Op }
 
-// Func is an operation function, which implements the interface Oper,
-// Setter and Condition.
-type Func func() Op
-
-// Operation implements the interface Oper.
-func (f Func) Operation() Op { return f() }
+func (o oper) Op() Op { return o.op }
 
 // ContainsKey reports whether the operations contains the key.
 func ContainsKey[S ~[]E, E Oper](ops S, key string) bool {
 	for _, op := range ops {
-		if op.Operation().Key == key {
+		if op.Op().Key == key {
 			return true
 		}
 	}
@@ -43,19 +38,21 @@ func ContainsKey[S ~[]E, E Oper](ops S, key string) bool {
 
 // Contains reports whether the operations contains the operation by the key.
 func Contains[S ~[]E1, E1, E2 Oper](ops S, op E2) bool {
-	return ContainsKey(ops, op.Operation().Key)
+	return ContainsKey(ops, op.Op().Key)
 }
 
 /// ----------------------------------------------------------------------- ///
 
-var _ Oper = Op{}
-
-// Op represents an operation, which has implemented the interface Oper,
-// Setter and Condition.
+// Op represents an operation.
 type Op struct {
+	// Required
 	Op  string
 	Key string
 	Val interface{}
+
+	// Optional
+	Kind string
+	Tags map[string]string
 }
 
 // Key is equal to New("", key, nil).
@@ -66,8 +63,8 @@ func New(op, key string, value interface{}) Op {
 	return Op{Op: op, Key: key, Val: value}
 }
 
-// Operation returns the condition operation information.
-func (o Op) Operation() Op { return o }
+// Oper converts itself to an Oper.
+func (o Op) Oper() Oper { return oper{o} }
 
 // Prefix is short for KeyPrefix.
 func (o Op) Prefix(prefix string) Op { return o.KeyPrefix(prefix) }
@@ -87,24 +84,77 @@ func (o Op) KeySuffix(suffix string) Op {
 	return o
 }
 
-// WithOp replaces the op with the new op.
+// WithOp replaces the op with the new and returns a new Op.
 func (o Op) WithOp(op string) Op {
 	o.Op = op
 	return o
 }
 
-// WithKey replaces the key with the new key.
+// WithKey replaces the key with the new and returns a new Op.
 func (o Op) WithKey(key string) Op {
 	o.Key = key
 	return o
 }
 
-// WithValue replaces the value with the new value.
+// WithValue replaces the value with the new and returns a new Op.
 func (o Op) WithValue(value interface{}) Op {
 	o.Val = value
 	return o
 }
 
-func (o Op) String() string {
-	return fmt.Sprintf("Op(key=%s, op=%s, value=%v)", o.Key, o.Op, o.Val)
+// WithKind replaces the kind with the new and returns a new Op.
+func (o Op) WithKind(kind string) Op {
+	o.Kind = kind
+	return o
 }
+
+// WithTags replaces the tags with the new and returns a new Op.
+func (o Op) WithTags(tags map[string]string) Op {
+	o.Tags = tags
+	return o
+}
+
+// WithTag clones the tags and appends the new key-value tag, and returns a new Op.
+func (o Op) WithTag(tkey, tvalue string) Op {
+	if o.Tags == nil {
+		o.Tags = map[string]string{tkey: tvalue}
+	} else {
+		tags := make(map[string]string, len(o.Tags)+1)
+		for k, v := range o.Tags {
+			tags[k] = v
+		}
+		o.Tags = tags
+	}
+	return o
+}
+
+// AppendTag appends the new key-value tag into the tags, and returns a new Op.
+func (o Op) AppendTag(tkey, tvalue string) Op {
+	if o.Tags == nil {
+		o.Tags = map[string]string{tkey: tvalue}
+	} else {
+		o.Tags[tkey] = tvalue
+	}
+	return o
+}
+
+// Name returns the name of the operation.
+func (o Op) Name(name string) string {
+	if name := o.Tags[name]; name != "" {
+		return name
+	}
+	return o.Key
+}
+
+func (o Op) String() string {
+	if o.Kind == "" {
+		return fmt.Sprintf("Op(key=%s, op=%s, value=%v)", o.Key, o.Op, o.Val)
+	}
+	return fmt.Sprintf("Op(kind=%s, key=%s, op=%s, value=%v)", o.Kind, o.Key, o.Op, o.Val)
+}
+
+// IsOp reports whether the operation is equal to op.
+func (o Op) IsOp(op string) bool { return o.Op == op }
+
+// IsKind reports whether the operation kind is equal to kind.
+func (o Op) IsKind(kind string) bool { return o.Kind == kind }

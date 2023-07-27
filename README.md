@@ -1,7 +1,7 @@
-# Go Condition and Setter Operation [![Build Status](https://github.com/xgfone/go-op/actions/workflows/go.yml/badge.svg)](https://github.com/xgfone/go-op/actions/workflows/go.yml) [![GoDoc](https://pkg.go.dev/badge/github.com/xgfone/go-op)](https://pkg.go.dev/github.com/xgfone/go-op) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](https://raw.githubusercontent.com/xgfone/go-op/master/LICENSE)
+# Go Operation [![Build Status](https://github.com/xgfone/go-op/actions/workflows/go.yml/badge.svg)](https://github.com/xgfone/go-op/actions/workflows/go.yml) [![GoDoc](https://pkg.go.dev/badge/github.com/xgfone/go-op)](https://pkg.go.dev/github.com/xgfone/go-op) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](https://raw.githubusercontent.com/xgfone/go-op/master/LICENSE)
 
 
-Provide a common condition and setter operation supporting Go `1.18+`.
+Provide a common operation, such as `Condition` and `Updater`, supporting Go `1.18+`.
 
 
 ## Install
@@ -22,50 +22,51 @@ import (
 )
 
 func main() {
-	// The common converter.
-	convert := func(_ string, oper op.Oper) interface{} {
-		op := oper.(op.Op)
+	// Manage the global op builders.
+	builders := make(map[string]func(op.Op) string, 4)
+	buildOper := func(op op.Oper) string { return builders[op.Op().Op](op.Op()) }
+	register := func(op string, f func(op.Op) string) { builders[op] = f }
+
+	// Register the Op builders.
+	buildSignEq := func(op op.Op) string {
 		if s, ok := op.Val.(string); ok {
 			return fmt.Sprintf("`%s`='%s'", op.Key, s)
 		}
 		return fmt.Sprintf("`%s`=%v", op.Key, op.Val)
 	}
-
-	// Register the condition and setter converters.
-	op.RegisterConverter("sql", op.CondOpNotEqual, convert)
-	op.RegisterConverter("sql", op.CondOpEqual, convert)
-	op.RegisterConverter("sql", op.SetOpAdd, convert)
-	op.RegisterConverter("sql", op.SetOpSet, convert)
+	register(op.CondOpNotEqual, buildSignEq)
+	register(op.CondOpEqual, buildSignEq)
+	register(op.UpdateOpAdd, buildSignEq)
+	register(op.UpdateOpSet, buildSignEq)
 
 	// Define a UPDATE sql builder.
-	buildUpdateSQL := func(table string, setters []op.Setter, conds []op.Condition) string {
-		_setters := make([]string, len(setters))
-		for i, setter := range setters {
-			_op := setter.Operation()
-			_setters[i] = op.GetConverter("sql", _op.Op)("sql", _op).(string)
+	buildUpdateSQL := func(table string, updaters []op.Updater, conds []op.Condition) string {
+		sets := make([]string, len(updaters))
+		for i, up := range updaters {
+			sets[i] = buildOper(up)
 		}
 
-		_conds := make([]string, len(conds))
+		wheres := make([]string, len(conds))
 		for i, cond := range conds {
-			_op := cond.Operation()
-			_conds[i] = op.GetConverter("sql", _op.Op)("sql", _op).(string)
+			wheres[i] = buildOper(cond)
 		}
 
 		return fmt.Sprintf("UPDATE `%s` SET %s WHERE %s",
-			table, strings.Join(_setters, ", "),
-			strings.Join(_conds, " AND "))
+			table, strings.Join(sets, ", "),
+			strings.Join(wheres, " AND "))
 	}
 
 	// build the UPDATE sql.
 	ColumnID := op.Key("id")
 	ColumnAge := op.Key("age")
 	sql := buildUpdateSQL("user",
-		[]op.Setter{ColumnAge.Add(1), op.Set("name", "Aaron")},
-		[]op.Condition{ColumnID.Eq(123), op.NotEq("deleted", false)},
+		[]op.Updater{ColumnAge.Add(1), op.Set("name", "Aaron")},
+		[]op.Condition{ColumnID.Eq(123), op.NotEq("is_deleted", false)},
 	)
 
 	fmt.Println(sql)
+
 	// Output:
-	// UPDATE `user` SET `age`=1, `name`='Aaron' WHERE `id`=123 AND `deleted`=false
+	// UPDATE `user` SET `age`=1, `name`='Aaron' WHERE `id`=123 AND `is_deleted`=false
 }
 ```

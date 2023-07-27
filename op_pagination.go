@@ -1,0 +1,54 @@
+// Copyright 2023 xgfone
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package op
+
+// Pre-define some pagination operations.
+const (
+	KindPagination   = "Pagination"
+	PaginationOpPage = "Page"
+)
+
+// Paginator represents a pagination operation.
+type Paginator interface {
+	paginate()
+	Oper
+}
+
+type paginator struct{ oper }
+
+func (p paginator) paginate() {}
+
+// NewPaginator converts an op to Paginator.
+func NewPaginator(op Op) Paginator { return op.Paginator() }
+
+// Paginator converts itself to Paginator.
+func (o Op) Paginator() Paginator { return paginator{oper{o.WithKind(KindPagination)}} }
+
+/// ---------------------------------------------------------------------- ///
+
+type PageSize struct {
+	Page int64 // Start with 1
+	Size int64
+}
+
+// Page is equal to New(PaginationOpPage, key, PageSize{Page: page, Size: size}).Paginator().
+func Page(key string, page, size int64) Paginator {
+	return New(PaginationOpPage, key, PageSize{Page: page, Size: size}).Paginator()
+}
+
+// Page is equal to Page(o.Key, page, size).
+func (o Op) Page(page, size int64) Paginator {
+	return Page(o.Key, page, size)
+}

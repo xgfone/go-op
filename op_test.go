@@ -27,12 +27,12 @@ func ExampleContains() {
 	fmt.Println(Contains(conds, cond1))
 	fmt.Println(Contains(conds, cond2))
 
-	// For the interface Setter
-	sets := []Setter{Add("key1", 123), Inc("key2"), Set("key", "value")}
+	// For the interface Updater
+	ups := []Updater{Add("key1", 123), Inc("key2"), Set("key", "value")}
 	set1 := Sub("nok", "value")
 	set2 := Mul("key", 456)
-	fmt.Println(Contains(sets, set1))
-	fmt.Println(Contains(sets, set2))
+	fmt.Println(Contains(ups, set1))
+	fmt.Println(Contains(ups, set2))
 
 	// For the interface Oper
 	ops := []Oper{Eq("key1", "value1"), Set("key2", "value2")}
@@ -41,16 +41,7 @@ func ExampleContains() {
 	fmt.Println(Contains(ops, op1))
 	fmt.Println(Contains(ops, op2))
 
-	// For the struct Op
-	opss := []Op{Eq("key1", "value1"), Set("key2", "value2")}
-	ops1 := NotEq("nok", "value1")
-	ops2 := Add("key2", 123)
-	fmt.Println(Contains(opss, ops1))
-	fmt.Println(Contains(opss, ops2))
-
 	// Output:
-	// false
-	// true
 	// false
 	// true
 	// false
@@ -59,49 +50,51 @@ func ExampleContains() {
 	// true
 }
 
-func ExampleRegisterConverter() {
-	// The common converter.
-	convert := func(_ string, oper Oper) interface{} {
-		op := oper.(Op)
+func ExampleOp() {
+	// Manage the global op builders.
+	builders := make(map[string]func(Op) string, 4)
+	buildOper := func(op Oper) string { return builders[op.Op().Op](op.Op()) }
+	register := func(op string, f func(Op) string) { builders[op] = f }
+
+	// Register the Op builders.
+	buildSignEq := func(op Op) string {
 		if s, ok := op.Val.(string); ok {
 			return fmt.Sprintf("`%s`='%s'", op.Key, s)
 		}
 		return fmt.Sprintf("`%s`=%v", op.Key, op.Val)
 	}
-
-	// Register the condition and setter converters.
-	RegisterConverter("sql", CondOpNotEqual, convert)
-	RegisterConverter("sql", CondOpEqual, convert)
-	RegisterConverter("sql", SetOpAdd, convert)
-	RegisterConverter("sql", SetOpSet, convert)
+	register(CondOpNotEqual, buildSignEq)
+	register(CondOpEqual, buildSignEq)
+	register(UpdateOpAdd, buildSignEq)
+	register(UpdateOpSet, buildSignEq)
 
 	// Define a UPDATE sql builder.
-	buildUpdateSQL := func(table string, setters []Setter, conds []Condition) string {
-		_setters := make([]string, len(setters))
-		for i, setter := range setters {
-			op := setter.Operation()
-			_setters[i] = GetConverter("sql", op.Op)("sql", op).(string)
+	buildUpdateSQL := func(table string, updaters []Updater, conds []Condition) string {
+		sets := make([]string, len(updaters))
+		for i, up := range updaters {
+			sets[i] = buildOper(up)
 		}
 
-		_conds := make([]string, len(conds))
+		wheres := make([]string, len(conds))
 		for i, cond := range conds {
-			op := cond.Operation()
-			_conds[i] = GetConverter("sql", op.Op)("sql", op).(string)
+			wheres[i] = buildOper(cond)
 		}
 
-		return fmt.Sprintf("UPDATE `%s` SET %s WHERE %s", table, strings.Join(_setters, ", "), strings.Join(_conds, " AND "))
+		return fmt.Sprintf("UPDATE `%s` SET %s WHERE %s",
+			table, strings.Join(sets, ", "),
+			strings.Join(wheres, " AND "))
 	}
 
 	// build the UPDATE sql.
 	ColumnID := Key("id")
 	ColumnAge := Key("age")
 	sql := buildUpdateSQL("user",
-		[]Setter{ColumnAge.Add(1), Set("name", "Aaron")},
-		[]Condition{ColumnID.Eq(123), NotEq("deleted", false)},
+		[]Updater{ColumnAge.Add(1), Set("name", "Aaron")},
+		[]Condition{ColumnID.Eq(123), NotEq("is_deleted", false)},
 	)
 
 	fmt.Println(sql)
 
 	// Output:
-	// UPDATE `user` SET `age`=1, `name`='Aaron' WHERE `id`=123 AND `deleted`=false
+	// UPDATE `user` SET `age`=1, `name`='Aaron' WHERE `id`=123 AND `is_deleted`=false
 }
