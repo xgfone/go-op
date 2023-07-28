@@ -43,12 +43,7 @@ type PageSize struct {
 	Size int64
 }
 
-// Page is equal to New(PaginationOpPage, key, PageSize{Page: page, Size: size}).Paginator().
-func Page(key string, page, size int64) Paginator {
-	return New(PaginationOpPage, key, PageSize{Page: page, Size: size}).Paginator()
-}
-
-// Page is equal to Page(o.Key, page, size).
-func (o Op) Page(page, size int64) Paginator {
-	return Page(o.Key, page, size)
+// Page is equal to New(PaginationOpPage, "", PageSize{Page: page, Size: size}).Paginator().
+func Page(page, size int64) Paginator {
+	return New(PaginationOpPage, "", PageSize{Page: page, Size: size}).Paginator()
 }
