@@ -15,7 +15,10 @@
 // Package op provides a common operation, such as Condition and Updater.
 package op
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // Oper is a common operation interface.
 type Oper interface {
@@ -71,6 +74,21 @@ func (o Op) Prefix(prefix string) Op { return o.KeyPrefix(prefix) }
 
 // Suffix is short for KeySuffix.
 func (o Op) Suffix(suffix string) Op { return o.KeySuffix(suffix) }
+
+// Scope is equal to o.Prefix(name + ".").
+func (o Op) Scope(name string) Op {
+	switch {
+	case len(name) == 0:
+		return o
+
+	case len(o.Key) == 0:
+		return o.WithKey(name)
+
+	default:
+		o.Key = strings.Join([]string{name, o.Key}, ".")
+		return o
+	}
+}
 
 // KeyPrefix returns a new Op, which uses prefix as the prefix of the key.
 func (o Op) KeyPrefix(prefix string) Op {

@@ -98,3 +98,21 @@ func ExampleOp() {
 	// Output:
 	// UPDATE `user` SET `age`=1, `name`='Aaron' WHERE `id`=123 AND `is_deleted`=false
 }
+
+func ExampleOp_Scope() {
+	op0 := Key("").Scope("")
+	op1 := Key("").Scope("T")
+	op2 := Key("key").Scope("")
+	op3 := Key("key").Scope("T")
+
+	fmt.Println(op0.Key)
+	fmt.Println(op1.Key)
+	fmt.Println(op2.Key)
+	fmt.Println(op3.Key)
+
+	// Output:
+	//
+	// T
+	// key
+	// T.key
+}
