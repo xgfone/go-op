@@ -28,6 +28,12 @@ const (
 	UpdateOpDiv   = "Div"
 )
 
+// KeyValue represents a key-value pair.
+type KeyValue struct {
+	Key string
+	Val interface{}
+}
+
 // Updater represents a update operation.
 type Updater interface {
 	update()
@@ -126,4 +132,24 @@ func (o Op) Div(value interface{}) Updater {
 // Set is equal to Set(o.Key, value).
 func (o Op) Set(value interface{}) Updater {
 	return Set(o.Key, value)
+}
+
+// AddKey is equal to Add(o.Key, KeyValue{Key: key, Val: value}).
+func (o Op) AddKey(key string, value interface{}) Updater {
+	return Add(o.Key, KeyValue{Key: key, Val: value})
+}
+
+// SubKey is equal to Sub(o.Key, KeyValue{Key: key, Val: value}).
+func (o Op) SubKey(key string, value interface{}) Updater {
+	return Sub(o.Key, KeyValue{Key: key, Val: value})
+}
+
+// MulKey is equal to Mul(o.Key, KeyValue{Key: key, Val: value}).
+func (o Op) MulKey(key string, value interface{}) Updater {
+	return Mul(o.Key, KeyValue{Key: key, Val: value})
+}
+
+// DivKey is equal to Div(o.Key, KeyValue{Key: key, Val: value}).
+func (o Op) DivKey(key string, value interface{}) Updater {
+	return Div(o.Key, KeyValue{Key: key, Val: value})
 }
