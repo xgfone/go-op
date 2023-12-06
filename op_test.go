@@ -99,6 +99,21 @@ func ExampleOp() {
 	// UPDATE `user` SET `age`=1, `name`='Aaron' WHERE `id`=123 AND `is_deleted`=false
 }
 
+func ExampleOp_Name() {
+	op1 := Key("key").Name("sql")
+	op2 := Key("key").AppendTag("sql", "field").Name("sql")
+	op3 := Key("key").Scope("parent").AppendTag("sql", "field").Name("sql")
+
+	fmt.Println(op1)
+	fmt.Println(op2)
+	fmt.Println(op3)
+
+	// Output:
+	// key
+	// field
+	// parent.field
+}
+
 func ExampleOp_Scope() {
 	op0 := Key("").Scope("")
 	op1 := Key("").Scope("T")

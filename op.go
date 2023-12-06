@@ -20,6 +20,9 @@ import (
 	"strings"
 )
 
+// Sep is the separator of the key.
+const Sep = "."
+
 // Oper is a common operation interface.
 type Oper interface {
 	Op() Op
@@ -75,7 +78,7 @@ func (o Op) Prefix(prefix string) Op { return o.KeyPrefix(prefix) }
 // Suffix is short for KeySuffix.
 func (o Op) Suffix(suffix string) Op { return o.KeySuffix(suffix) }
 
-// Scope is equal to o.Prefix(name + ".").
+// Scope is equal to o.Prefix(name + Sep).
 func (o Op) Scope(name string) Op {
 	switch {
 	case len(name) == 0:
@@ -85,7 +88,7 @@ func (o Op) Scope(name string) Op {
 		return o.WithKey(name)
 
 	default:
-		o.Key = strings.Join([]string{name, o.Key}, ".")
+		o.Key = strings.Join([]string{name, o.Key}, Sep)
 		return o
 	}
 }
@@ -157,8 +160,11 @@ func (o Op) AppendTag(tkey, tvalue string) Op {
 }
 
 // Name returns the name of the operation.
-func (o Op) Name(name string) string {
-	if name := o.Tags[name]; name != "" {
+func (o Op) Name(tagname string) string {
+	if name := o.Tags[tagname]; name != "" {
+		if index := strings.LastIndexByte(o.Key, '.'); index > -1 {
+			name = o.Key[:index+1] + name
+		}
 		return name
 	}
 	return o.Key
