@@ -97,12 +97,12 @@ func GreaterEqual(key string, value interface{}) Condition {
 	return Key(key).GreaterEqual(value)
 }
 
-// In is equal to Key(key).In(values...).
+// In is equal to Key(key).In(values).
 func In(key string, values interface{}) Condition {
 	return Key(key).In(values)
 }
 
-// NotIn is equal to Key(key).NotIn(values...).
+// NotIn is equal to Key(key).NotIn(values).
 func NotIn(key string, values interface{}) Condition {
 	return Key(key).NotIn(values)
 }
