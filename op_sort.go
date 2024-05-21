@@ -61,8 +61,3 @@ func (o Op) OrderDesc() Sorter { return o.Order(SortDesc) }
 func (o Op) Order(order string) Sorter {
 	return o.WithOp(SortOpOrder).WithValue(order).Sorter()
 }
-
-// Orders is the same as Orders(orders...).
-func (o Op) Orders(orders ...Sorter) Sorter {
-	return o.WithOp(SortOpOrders).WithValue(orders).Sorter()
-}
