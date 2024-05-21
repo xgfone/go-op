@@ -44,9 +44,6 @@ type updater struct{ oper }
 
 func (u updater) update() {}
 
-// NewUpdater converts an op to Updater.
-func NewUpdater(op Op) Updater { return op.Updater() }
-
 // Updater converts itself to Updater.
 func (o Op) Updater() Updater { return updater{oper{o.WithKind(KindUpdate)}} }
 

@@ -37,10 +37,7 @@ type sort struct{ oper }
 
 func (s sort) sort() {}
 
-// NewSorter converts an op to Sorter.
-func NewSorter(op Op) Sorter { return op.Sorter() }
-
-// Sort converts itself to Sorter.
+// Sorter converts itself to Sorter.
 func (o Op) Sorter() Sorter { return sort{oper{o.WithKind(KindSort)}} }
 
 /// ---------------------------------------------------------------------- ///

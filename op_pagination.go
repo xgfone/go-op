@@ -30,9 +30,6 @@ type paginator struct{ oper }
 
 func (p paginator) paginate() {}
 
-// NewPaginator converts an op to Paginator.
-func NewPaginator(op Op) Paginator { return op.Paginator() }
-
 // Paginator converts itself to Paginator.
 func (o Op) Paginator() Paginator { return paginator{oper{o.WithKind(KindPagination)}} }
 

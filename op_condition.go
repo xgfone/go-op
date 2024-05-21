@@ -62,9 +62,6 @@ type condition struct{ oper }
 
 func (c condition) condition() {}
 
-// NewCondition converts an op to Condition.
-func NewCondition(op Op) Condition { return op.Condition() }
-
 // Condition converts itself to Condition.
 func (o Op) Condition() Condition { return condition{oper{o.WithKind(KindCondition)}} }
 
