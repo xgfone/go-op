@@ -52,6 +52,12 @@ const (
 	CondOpOr  = "Or"
 )
 
+// Boundary is used by the BETWEEN condition.
+type Boundary struct {
+	Lower any
+	Upper any
+}
+
 // Condition represents a condition operation.
 type Condition interface {
 	condition()
@@ -227,14 +233,14 @@ func (o Op) NotLike(value string) Condition {
 	return o.WithOp(CondOpNotLike).WithValue(value).Condition()
 }
 
-// Between is equal to o.WithOp(CondOpBetween).WithValue([]interface{}{lower, upper}).Condition().
+// Between is equal to o.WithOp(CondOpBetween).WithValue(Boundary{Lower: lower, Upper: upper}).Condition().
 func (o Op) Between(lower, upper interface{}) Condition {
-	return o.WithOp(CondOpBetween).WithValue([]interface{}{lower, upper}).Condition()
+	return o.WithOp(CondOpBetween).WithValue(Boundary{Lower: lower, Upper: upper}).Condition()
 }
 
-// NotBetween is equal to o.WithOp(CondOpNotBetween).WithValue([]interface{}{lower, upper}).Condition().
+// NotBetween is equal to o.WithOp(CondOpNotBetween).WithValue(Boundary{Lower: lower, Upper: upper}).Condition().
 func (o Op) NotBetween(lower, upper interface{}) Condition {
-	return o.WithOp(CondOpNotBetween).WithValue([]interface{}{lower, upper}).Condition()
+	return o.WithOp(CondOpNotBetween).WithValue(Boundary{Lower: lower, Upper: upper}).Condition()
 }
 
 // Eq is equal to o.Equal(value).
