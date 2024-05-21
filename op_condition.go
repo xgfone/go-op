@@ -74,32 +74,32 @@ func (o Op) Condition() Condition { return condition{oper{o.WithKind(KindConditi
 /// ---------------------------------------------------------------------- ///
 
 // Equal is equal to Key(key).Equal(value).
-func Equal(key string, value interface{}) Condition {
+func Equal(key string, value any) Condition {
 	return Key(key).Equal(value)
 }
 
 // NotEqual is equal to Key(key).NotEqual(value).
-func NotEqual(key string, value interface{}) Condition {
+func NotEqual(key string, value any) Condition {
 	return Key(key).NotEqual(value)
 }
 
 // Less is equal to Key(key).Less(value).
-func Less(key string, value interface{}) Condition {
+func Less(key string, value any) Condition {
 	return Key(key).Less(value)
 }
 
 // LessEqual is equal to Key(key).LessEqual(value).
-func LessEqual(key string, value interface{}) Condition {
+func LessEqual(key string, value any) Condition {
 	return Key(key).LessEqual(value)
 }
 
 // Greater is equal to Key(key).Greater(value).
-func Greater(key string, value interface{}) Condition {
+func Greater(key string, value any) Condition {
 	return Key(key).Greater(value)
 }
 
 // GreaterEqual is equal to Key(key).GreaterEqual(value).
-func GreaterEqual(key string, value interface{}) Condition {
+func GreaterEqual(key string, value any) Condition {
 	return Key(key).GreaterEqual(value)
 }
 
@@ -134,12 +134,12 @@ func NotLike(key string, value string) Condition {
 }
 
 // Between is equal to Key(key).Between(lower, upper).
-func Between(key string, lower, upper interface{}) Condition {
+func Between(key string, lower, upper any) Condition {
 	return Key(key).Between(lower, upper)
 }
 
 // NotBetween is equal to Key(key).NotBetween(lower, upper).
-func NotBetween(key string, lower, upper interface{}) Condition {
+func NotBetween(key string, lower, upper any) Condition {
 	return Key(key).NotBetween(lower, upper)
 }
 
@@ -154,62 +154,62 @@ func Or(ops ...Condition) Condition {
 }
 
 // Eq is short for Equal.
-func Eq(key string, value interface{}) Condition { return Equal(key, value) }
+func Eq(key string, value any) Condition { return Equal(key, value) }
 
 // NotEq is short for NotEqual.
-func NotEq(key string, value interface{}) Condition { return NotEqual(key, value) }
+func NotEq(key string, value any) Condition { return NotEqual(key, value) }
 
 // Le is short for Less.
-func Le(key string, value interface{}) Condition { return Less(key, value) }
+func Le(key string, value any) Condition { return Less(key, value) }
 
 // LeEq is short for LessEqual.
-func LeEq(key string, value interface{}) Condition { return LessEqual(key, value) }
+func LeEq(key string, value any) Condition { return LessEqual(key, value) }
 
 // Gt is short for Greater.
-func Gt(key string, value interface{}) Condition { return Greater(key, value) }
+func Gt(key string, value any) Condition { return Greater(key, value) }
 
 // GtEq is short for GreaterEqual.
-func GtEq(key string, value interface{}) Condition { return GreaterEqual(key, value) }
+func GtEq(key string, value any) Condition { return GreaterEqual(key, value) }
 
 /// ---------------------------------------------------------------------- ///
 
 // Equal is equal to o.WithOp(CondOpEqual).WithValue(value).Condition().
-func (o Op) Equal(value interface{}) Condition {
+func (o Op) Equal(value any) Condition {
 	return o.WithOp(CondOpEqual).WithValue(value).Condition()
 }
 
 // NotEqual is equal to o.WithOp(CondOpNotEqual).WithValue(value).Condition().
-func (o Op) NotEqual(value interface{}) Condition {
+func (o Op) NotEqual(value any) Condition {
 	return o.WithOp(CondOpNotEqual).WithValue(value).Condition()
 }
 
 // Greater is equal to o.WithOp(CondOpGreater).WithValue(value).Condition().
-func (o Op) Greater(value interface{}) Condition {
+func (o Op) Greater(value any) Condition {
 	return o.WithOp(CondOpGreater).WithValue(value).Condition()
 }
 
 // GreaterEqual is equal to o.WithOp(CondOpGreaterEqual).WithValue(value).Condition().
-func (o Op) GreaterEqual(value interface{}) Condition {
+func (o Op) GreaterEqual(value any) Condition {
 	return o.WithOp(CondOpGreaterEqual).WithValue(value).Condition()
 }
 
 // Less is equal to o.WithOp(CondOpLess).WithValue(value).Condition().
-func (o Op) Less(value interface{}) Condition {
+func (o Op) Less(value any) Condition {
 	return o.WithOp(CondOpLess).WithValue(value).Condition()
 }
 
 // LessEqual is equal to o.WithOp(CondOpLessEqual).WithValue(value).Condition().
-func (o Op) LessEqual(value interface{}) Condition {
+func (o Op) LessEqual(value any) Condition {
 	return o.WithOp(CondOpLessEqual).WithValue(value).Condition()
 }
 
 // In is equal to o.WithOp(CondOpIn).WithValue(values).Condition().
-func (o Op) In(values interface{}) Condition {
+func (o Op) In(values any) Condition {
 	return o.WithOp(CondOpIn).WithValue(values).Condition()
 }
 
 // NotIn is equal to o.WithOp(CondOpNotIn).WithValue(values).Condition().
-func (o Op) NotIn(values interface{}) Condition {
+func (o Op) NotIn(values any) Condition {
 	return o.WithOp(CondOpNotIn).WithValue(values).Condition()
 }
 
@@ -234,42 +234,42 @@ func (o Op) NotLike(value string) Condition {
 }
 
 // Between is equal to o.WithOp(CondOpBetween).WithValue(Boundary{Lower: lower, Upper: upper}).Condition().
-func (o Op) Between(lower, upper interface{}) Condition {
+func (o Op) Between(lower, upper any) Condition {
 	return o.WithOp(CondOpBetween).WithValue(Boundary{Lower: lower, Upper: upper}).Condition()
 }
 
 // NotBetween is equal to o.WithOp(CondOpNotBetween).WithValue(Boundary{Lower: lower, Upper: upper}).Condition().
-func (o Op) NotBetween(lower, upper interface{}) Condition {
+func (o Op) NotBetween(lower, upper any) Condition {
 	return o.WithOp(CondOpNotBetween).WithValue(Boundary{Lower: lower, Upper: upper}).Condition()
 }
 
 // Eq is equal to o.Equal(value).
-func (o Op) Eq(value interface{}) Condition {
+func (o Op) Eq(value any) Condition {
 	return o.Equal(value)
 }
 
 // Le is equal to o.Less(value).
-func (o Op) Le(value interface{}) Condition {
+func (o Op) Le(value any) Condition {
 	return o.Less(value)
 }
 
 // Gt is equal to o.Greater(value).
-func (o Op) Gt(value interface{}) Condition {
+func (o Op) Gt(value any) Condition {
 	return o.Greater(value)
 }
 
 // NotEq is equal to o.NotEqual(value).
-func (o Op) NotEq(value interface{}) Condition {
+func (o Op) NotEq(value any) Condition {
 	return o.NotEqual(value)
 }
 
 // LeEq is equal to o.LessEqual(value).
-func (o Op) LeEq(value interface{}) Condition {
+func (o Op) LeEq(value any) Condition {
 	return o.LessEqual(value)
 }
 
 // GtEq is equal to o.GreaterEqual(value).
-func (o Op) GtEq(value interface{}) Condition {
+func (o Op) GtEq(value any) Condition {
 	return o.GreaterEqual(value)
 }
 

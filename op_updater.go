@@ -31,7 +31,7 @@ const (
 // KeyValue represents a key-value pair.
 type KeyValue struct {
 	Key string
-	Val interface{}
+	Val any
 }
 
 // Updater represents a update operation.
@@ -72,27 +72,27 @@ func Dec(key string) Updater {
 }
 
 // Add is equal to Key(key).Add(value).
-func Add(key string, value interface{}) Updater {
+func Add(key string, value any) Updater {
 	return Key(key).Add(value)
 }
 
 // Sub is equal to Key(key).Sub(value).
-func Sub(key string, value interface{}) Updater {
+func Sub(key string, value any) Updater {
 	return Key(key).Sub(value)
 }
 
 // Mul is equal to Key(key).Mul(value).
-func Mul(key string, value interface{}) Updater {
+func Mul(key string, value any) Updater {
 	return Key(key).Mul(value)
 }
 
 // Div is equal to Key(key).Div(value).
-func Div(key string, value interface{}) Updater {
+func Div(key string, value any) Updater {
 	return Key(key).Div(value)
 }
 
 // Set is equal to Key(key).Set(value).
-func Set(key string, value interface{}) Updater {
+func Set(key string, value any) Updater {
 	return Key(key).Set(value)
 }
 
@@ -107,46 +107,46 @@ func (o Op) Dec() Updater {
 }
 
 // Add is equal to o.WithOp(UpdateOpAdd).WithValue(value).Updater().
-func (o Op) Add(value interface{}) Updater {
+func (o Op) Add(value any) Updater {
 	return o.WithOp(UpdateOpAdd).WithValue(value).Updater()
 }
 
 // Sub is equal to o.WithOp(UpdateOpSub).WithValue(value).Updater().
-func (o Op) Sub(value interface{}) Updater {
+func (o Op) Sub(value any) Updater {
 	return o.WithOp(UpdateOpSub).WithValue(value).Updater()
 }
 
 // Mul is equal to o.WithOp(UpdateOpMul).WithValue(value).Updater().
-func (o Op) Mul(value interface{}) Updater {
+func (o Op) Mul(value any) Updater {
 	return o.WithOp(UpdateOpMul).WithValue(value).Updater()
 }
 
 // Div is equal to o.WithOp(UpdateOpDiv).WithValue(value).Updater().
-func (o Op) Div(value interface{}) Updater {
+func (o Op) Div(value any) Updater {
 	return o.WithOp(UpdateOpDiv).WithValue(value).Updater()
 }
 
 // Set is equal to o.WithOp(UpdateOpSet).WithValue(value).Updater().
-func (o Op) Set(value interface{}) Updater {
+func (o Op) Set(value any) Updater {
 	return o.WithOp(UpdateOpSet).WithValue(value).Updater()
 }
 
 // AddKey is equal to o.WithOp(UpdateOpAdd).WithValue(KeyValue{Key: key, Val: value}).Updater().
-func (o Op) AddKey(key string, value interface{}) Updater {
+func (o Op) AddKey(key string, value any) Updater {
 	return o.WithOp(UpdateOpAdd).WithValue(KeyValue{Key: key, Val: value}).Updater()
 }
 
 // SubKey is equal to o.WithOp(UpdateOpSub).WithValue(KeyValue{Key: key, Val: value}).Updater().
-func (o Op) SubKey(key string, value interface{}) Updater {
+func (o Op) SubKey(key string, value any) Updater {
 	return o.WithOp(UpdateOpSub).WithValue(KeyValue{Key: key, Val: value}).Updater()
 }
 
 // MulKey is equal to o.WithOp(UpdateOpMul).WithValue(KeyValue{Key: key, Val: value}).Updater().
-func (o Op) MulKey(key string, value interface{}) Updater {
+func (o Op) MulKey(key string, value any) Updater {
 	return o.WithOp(UpdateOpMul).WithValue(KeyValue{Key: key, Val: value}).Updater()
 }
 
 // DivKey is equal to o.WithOp(UpdateOpDiv).WithValue(KeyValue{Key: key, Val: value}).Updater().
-func (o Op) DivKey(key string, value interface{}) Updater {
+func (o Op) DivKey(key string, value any) Updater {
 	return o.WithOp(UpdateOpDiv).WithValue(KeyValue{Key: key, Val: value}).Updater()
 }

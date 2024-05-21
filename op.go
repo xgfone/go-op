@@ -54,7 +54,7 @@ type Op struct {
 	// Required
 	Op  string
 	Key string
-	Val interface{}
+	Val any
 
 	// Optional
 	Kind string
@@ -65,7 +65,7 @@ type Op struct {
 func Key(key string) Op { return New("", key, nil) }
 
 // New returns a new Op.
-func New(op, key string, value interface{}) Op {
+func New(op, key string, value any) Op {
 	return Op{Op: op, Key: key, Val: value}
 }
 
@@ -118,7 +118,7 @@ func (o Op) WithKey(key string) Op {
 }
 
 // WithValue replaces the value with the new and returns a new Op.
-func (o Op) WithValue(value interface{}) Op {
+func (o Op) WithValue(value any) Op {
 	o.Val = value
 	return o
 }
