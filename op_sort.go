@@ -28,7 +28,7 @@ const (
 )
 
 // Sort represents a sort operation
-type Sort interface {
+type Sorter interface {
 	sort()
 	Oper
 }
@@ -37,31 +37,31 @@ type sort struct{ oper }
 
 func (s sort) sort() {}
 
-// NewSort converts an op to Sort.
-func NewSort(op Op) Sort { return op.Sort() }
+// NewSorter converts an op to Sorter.
+func NewSorter(op Op) Sorter { return op.Sorter() }
 
-// Sort converts itself to Sort.
-func (o Op) Sort() Sort { return sort{oper{o.WithKind(KindSort)}} }
+// Sort converts itself to Sorter.
+func (o Op) Sorter() Sorter { return sort{oper{o.WithKind(KindSort)}} }
 
 /// ---------------------------------------------------------------------- ///
 
-// Order is equal to New(SortOpOrder, key, order).Sort().
+// Order is equal to New(SortOpOrder, key, order).Sorter().
 //
 // order may be SortAsc or SortDesc.
-func Order(key, order string) Sort {
-	return New(SortOpOrder, key, order).Sort()
+func Order(key, order string) Sorter {
+	return New(SortOpOrder, key, order).Sorter()
 }
 
-// Orders is equal to New(SortOpOrders, "", orders).Sort().
-func Orders(orders ...Sort) Sort {
-	return New(SortOpOrders, "", orders).Sort()
+// Orders is equal to New(SortOpOrders, "", orders).Sorter().
+func Orders(orders ...Sorter) Sorter {
+	return New(SortOpOrders, "", orders).Sorter()
 }
 
-func (o Op) OrderAsc() Sort  { return o.Order(SortAsc) }
-func (o Op) OrderDesc() Sort { return o.Order(SortDesc) }
+func (o Op) OrderAsc() Sorter  { return o.Order(SortAsc) }
+func (o Op) OrderDesc() Sorter { return o.Order(SortDesc) }
 
 // Order is equal to Order(o.Key, order).
-func (o Op) Order(order string) Sort { return Order(o.Key, order) }
+func (o Op) Order(order string) Sorter { return Order(o.Key, order) }
 
 // Orders is equal to Orders(orders...).
-func (o Op) Orders(orders ...Sort) Sort { return Orders(orders...) }
+func (o Op) Orders(orders ...Sorter) Sorter { return Orders(orders...) }
