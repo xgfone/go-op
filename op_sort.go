@@ -42,7 +42,7 @@ func (o Op) Sorter() Sorter { return sort{oper{o.WithKind(KindSort)}} }
 
 /// ---------------------------------------------------------------------- ///
 
-// Order is equal to New(SortOpOrder, key, order).Sorter().
+// Order is equal to Key(key).Order(order).
 //
 // order may be SortAsc or SortDesc.
 func Order(key, order string) Sorter {
@@ -57,7 +57,7 @@ func Orders(orders ...Sorter) Sorter {
 func (o Op) OrderAsc() Sorter  { return o.Order(SortAsc) }
 func (o Op) OrderDesc() Sorter { return o.Order(SortDesc) }
 
-// Order is the same as Order(o.Key, order).
+// Order is equal to o.WithOp(SortOpOrder).WithValue(order).Sorter().
 func (o Op) Order(order string) Sorter {
 	return o.WithOp(SortOpOrder).WithValue(order).Sorter()
 }
