@@ -167,104 +167,104 @@ func GtEq(key string, value interface{}) Condition { return GreaterEqual(key, va
 
 /// ---------------------------------------------------------------------- ///
 
-// Equal is equal to Equal(o.Key, value).
+// Equal is the same as Equal(o.Key, value).
 func (o Op) Equal(value interface{}) Condition {
-	return Equal(o.Key, value)
+	return o.WithOp(CondOpEqual).WithValue(value).Condition()
 }
 
-// NotEqual is equal to NotEqual(o.Key, value).
+// NotEqual is the same as NotEqual(o.Key, value).
 func (o Op) NotEqual(value interface{}) Condition {
-	return NotEqual(o.Key, value)
+	return o.WithOp(CondOpNotEqual).WithValue(value).Condition()
 }
 
-// Greater is equal to Greater(o.Key, value).
+// Greater is the same as Greater(o.Key, value).
 func (o Op) Greater(value interface{}) Condition {
-	return Greater(o.Key, value)
+	return o.WithOp(CondOpGreater).WithValue(value).Condition()
 }
 
-// GreaterEqual is equal to GreaterEqual(o.Key, value).
+// GreaterEqual is the same as GreaterEqual(o.Key, value).
 func (o Op) GreaterEqual(value interface{}) Condition {
-	return GreaterEqual(o.Key, value)
+	return o.WithOp(CondOpGreaterEqual).WithValue(value).Condition()
 }
 
-// Less is equal to Less(o.Key, value).
+// Less is the same as Less(o.Key, value).
 func (o Op) Less(value interface{}) Condition {
-	return Less(o.Key, value)
+	return o.WithOp(CondOpLess).WithValue(value).Condition()
 }
 
-// LessEqual is equal to LessEqual(o.Key, value).
+// LessEqual is the same as LessEqual(o.Key, value).
 func (o Op) LessEqual(value interface{}) Condition {
-	return LessEqual(o.Key, value)
+	return o.WithOp(CondOpLessEqual).WithValue(value).Condition()
 }
 
-// In is equal to In(o.Key, values...).
+// In is the same as In(o.Key, values...).
 func (o Op) In(values ...interface{}) Condition {
-	return In(o.Key, values...)
+	return o.WithOp(CondOpIn).WithValue(values).Condition()
 }
 
-// NotIn is equal to NotIn(o.Key, value).
+// NotIn is the same as NotIn(o.Key, value).
 func (o Op) NotIn(values ...interface{}) Condition {
-	return NotIn(o.Key, values...)
+	return o.WithOp(CondOpNotIn).WithValue(values).Condition()
 }
 
-// IsNull is equal to IsNull(o.Key).
+// IsNull is the same as IsNull(o.Key).
 func (o Op) IsNull() Condition {
-	return IsNull(o.Key)
+	return o.WithOp(CondOpIsNull).Condition()
 }
 
-// IsNotNull is equal to IsNotNull(o.Key).
+// IsNotNull is the same as IsNotNull(o.Key).
 func (o Op) IsNotNull() Condition {
-	return IsNotNull(o.Key)
+	return o.WithOp(CondOpIsNotNull).Condition()
 }
 
-// Like is equal to Like(o.Key, value).
+// Like is the same as Like(o.Key, value).
 func (o Op) Like(value string) Condition {
-	return Like(o.Key, value)
+	return o.WithOp(CondOpLike).WithValue(value).Condition()
 }
 
-// NotLike is equal to NotLike(o.Key, value).
+// NotLike is the same as NotLike(o.Key, value).
 func (o Op) NotLike(value string) Condition {
-	return NotLike(o.Key, value)
+	return o.WithOp(CondOpNotLike).WithValue(value).Condition()
 }
 
-// Between is equal to Between(o.Key, lower, upper).
+// Between is the same as Between(o.Key, lower, upper).
 func (o Op) Between(lower, upper interface{}) Condition {
-	return Between(o.Key, lower, upper)
+	return o.WithOp(CondOpBetween).WithValue([]interface{}{lower, upper}).Condition()
 }
 
-// NotBetween is equal to NotBetween(o.Key, lower, upper).
+// NotBetween is the same as NotBetween(o.Key, lower, upper).
 func (o Op) NotBetween(lower, upper interface{}) Condition {
-	return NotBetween(o.Key, lower, upper)
+	return o.WithOp(CondOpNotBetween).WithValue([]interface{}{lower, upper}).Condition()
 }
 
-// Eq is equal to Eq(o.Key, value).
+// Eq is the same as Eq(o.Key, value).
 func (o Op) Eq(value interface{}) Condition {
-	return Eq(o.Key, value)
+	return o.Equal(value)
 }
 
-// Le is equal to Le(o.Key, value).
+// Le is the same as Le(o.Key, value).
 func (o Op) Le(value interface{}) Condition {
-	return Le(o.Key, value)
+	return o.Less(value)
 }
 
-// Gt is equal to Gt(o.Key, value).
+// Gt is the same as Gt(o.Key, value).
 func (o Op) Gt(value interface{}) Condition {
-	return Gt(o.Key, value)
+	return o.Greater(value)
 }
 
-// NotEq is equal to NotEq(o.Key, value).
+// NotEq is the same as NotEq(o.Key, value).
 func (o Op) NotEq(value interface{}) Condition {
-	return NotEq(o.Key, value)
+	return o.NotEqual(value)
 }
 
-// LeEq is equal to LeEq(o.Key, value).
+// LeEq is the same as LeEq(o.Key, value).
 func (o Op) LeEq(value interface{}) Condition {
-	return LeEq(o.Key, value)
+	return o.LessEqual(value)
 }
 
-// GtEq is equal to GtEq(o.Key, value).
+// GtEq is the same as GtEq(o.Key, value).
 func (o Op) GtEq(value interface{}) Condition {
-	return GtEq(o.Key, value)
+	return o.GreaterEqual(value)
 }
 
 /// ---------------------------------------------------------------------- ///
@@ -299,32 +299,32 @@ func GreaterEqualKey(leftKey, rightKey string) Condition {
 	return New(CondOpGreaterEqualKey, leftKey, rightKey).Condition()
 }
 
-// EqualKey is equal to EqualKey(o.Key, otherKey).
+// EqualKey is the same as EqualKey(o.Key, otherKey).
 func (o Op) EqualKey(otherKey string) Condition {
-	return EqualKey(o.Key, otherKey)
+	return o.WithOp(CondOpEqualKey).WithValue(otherKey).Condition()
 }
 
-// NotEqualKey is equal to NotEqualKey(o.Key, otherKey).
+// NotEqualKey is the same as NotEqualKey(o.Key, otherKey).
 func (o Op) NotEqualKey(otherKey string) Condition {
-	return NotEqualKey(o.Key, otherKey)
+	return o.WithOp(CondOpNotEqualKey).WithValue(otherKey).Condition()
 }
 
-// LessKey is equal to LessKey(o.Key, otherKey).
+// LessKey is the same as LessKey(o.Key, otherKey).
 func (o Op) LessKey(otherKey string) Condition {
-	return LessKey(o.Key, otherKey)
+	return o.WithOp(CondOpLessKey).WithValue(otherKey).Condition()
 }
 
-// LessEqualKey is equal to LessEqualKey(o.Key, otherKey).
+// LessEqualKey is the same as LessEqualKey(o.Key, otherKey).
 func (o Op) LessEqualKey(otherKey string) Condition {
-	return LessEqualKey(o.Key, otherKey)
+	return o.WithOp(CondOpLessEqualKey).WithValue(otherKey).Condition()
 }
 
-// GreaterKey is equal to GreaterKey(o.Key, otherKey).
+// GreaterKey is the same as GreaterKey(o.Key, otherKey).
 func (o Op) GreaterKey(otherKey string) Condition {
-	return GreaterKey(o.Key, otherKey)
+	return o.WithOp(CondOpGreaterKey).WithValue(otherKey).Condition()
 }
 
-// GreaterEqualKey is equal to GreaterEqualKey(o.Key, otherKey).
+// GreaterEqualKey is the same as GreaterEqualKey(o.Key, otherKey).
 func (o Op) GreaterEqualKey(otherKey string) Condition {
-	return GreaterEqualKey(o.Key, otherKey)
+	return o.WithOp(CondOpGreaterEqualKey).WithValue(otherKey).Condition()
 }

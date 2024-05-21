@@ -57,8 +57,12 @@ func Orders(orders ...Sorter) Sorter {
 func (o Op) OrderAsc() Sorter  { return o.Order(SortAsc) }
 func (o Op) OrderDesc() Sorter { return o.Order(SortDesc) }
 
-// Order is equal to Order(o.Key, order).
-func (o Op) Order(order string) Sorter { return Order(o.Key, order) }
+// Order is the same as Order(o.Key, order).
+func (o Op) Order(order string) Sorter {
+	return o.WithOp(SortOpOrder).WithValue(order).Sorter()
+}
 
-// Orders is equal to Orders(orders...).
-func (o Op) Orders(orders ...Sorter) Sorter { return Orders(orders...) }
+// Orders is the same as Orders(orders...).
+func (o Op) Orders(orders ...Sorter) Sorter {
+	return o.WithOp(SortOpOrders).WithValue(orders).Sorter()
+}

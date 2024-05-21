@@ -96,57 +96,57 @@ func Set(key string, value interface{}) Updater {
 	return New(UpdateOpSet, key, value).Updater()
 }
 
-// Inc is equal to Inc(o.Key).
+// Inc is the same as Inc(o.Key).
 func (o Op) Inc() Updater {
-	return Inc(o.Key)
+	return o.WithOp(UpdateOpInc).Updater()
 }
 
-// Dec is equal to Dec(o.Key).
+// Dec is the same as Dec(o.Key).
 func (o Op) Dec() Updater {
-	return Dec(o.Key)
+	return o.WithOp(UpdateOpDec).Updater()
 }
 
-// Add is equal to Add(o.Key, value).
+// Add is the same as Add(o.Key, value).
 func (o Op) Add(value interface{}) Updater {
-	return Add(o.Key, value)
+	return o.WithOp(UpdateOpAdd).WithValue(value).Updater()
 }
 
-// Sub is equal to Sub(o.Key, value).
+// Sub is the same as Sub(o.Key, value).
 func (o Op) Sub(value interface{}) Updater {
-	return Sub(o.Key, value)
+	return o.WithOp(UpdateOpSub).WithValue(value).Updater()
 }
 
-// Mul is equal to Mul(o.Key, value).
+// Mul is the same as Mul(o.Key, value).
 func (o Op) Mul(value interface{}) Updater {
-	return Mul(o.Key, value)
+	return o.WithOp(UpdateOpMul).WithValue(value).Updater()
 }
 
-// Div is equal to Div(o.Key, value).
+// Div is the same as Div(o.Key, value).
 func (o Op) Div(value interface{}) Updater {
-	return Div(o.Key, value)
+	return o.WithOp(UpdateOpDiv).WithValue(value).Updater()
 }
 
-// Set is equal to Set(o.Key, value).
+// Set is the same as Set(o.Key, value).
 func (o Op) Set(value interface{}) Updater {
-	return Set(o.Key, value)
+	return o.WithOp(UpdateOpSet).WithValue(value).Updater()
 }
 
-// AddKey is equal to Add(o.Key, KeyValue{Key: key, Val: value}).
+// AddKey is the same as Add(o.Key, KeyValue{Key: key, Val: value}).
 func (o Op) AddKey(key string, value interface{}) Updater {
-	return Add(o.Key, KeyValue{Key: key, Val: value})
+	return o.WithOp(UpdateOpAdd).WithValue(KeyValue{Key: key, Val: value}).Updater()
 }
 
-// SubKey is equal to Sub(o.Key, KeyValue{Key: key, Val: value}).
+// SubKey is the same as Sub(o.Key, KeyValue{Key: key, Val: value}).
 func (o Op) SubKey(key string, value interface{}) Updater {
-	return Sub(o.Key, KeyValue{Key: key, Val: value})
+	return o.WithOp(UpdateOpSub).WithValue(KeyValue{Key: key, Val: value}).Updater()
 }
 
-// MulKey is equal to Mul(o.Key, KeyValue{Key: key, Val: value}).
+// MulKey is the same as Mul(o.Key, KeyValue{Key: key, Val: value}).
 func (o Op) MulKey(key string, value interface{}) Updater {
-	return Mul(o.Key, KeyValue{Key: key, Val: value})
+	return o.WithOp(UpdateOpMul).WithValue(KeyValue{Key: key, Val: value}).Updater()
 }
 
-// DivKey is equal to Div(o.Key, KeyValue{Key: key, Val: value}).
+// DivKey is the same as Div(o.Key, KeyValue{Key: key, Val: value}).
 func (o Op) DivKey(key string, value interface{}) Updater {
-	return Div(o.Key, KeyValue{Key: key, Val: value})
+	return o.WithOp(UpdateOpDiv).WithValue(KeyValue{Key: key, Val: value}).Updater()
 }
