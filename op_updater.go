@@ -63,37 +63,37 @@ func Batch(ups ...Updater) Updater {
 
 // Inc is equal to New(UpdateOpInc, key, nil).Updater().
 func Inc(key string) Updater {
-	return New(UpdateOpInc, key, nil).Updater()
+	return Key(key).Inc()
 }
 
 // Dec is equal to New(UpdateOpDec, key, nil).Updater().
 func Dec(key string) Updater {
-	return New(UpdateOpDec, key, nil).Updater()
+	return Key(key).Dec()
 }
 
 // Add is equal to New(UpdateOpAdd, key, value).Updater().
 func Add(key string, value interface{}) Updater {
-	return New(UpdateOpAdd, key, value).Updater()
+	return Key(key).Add(value)
 }
 
 // Sub is equal to New(UpdateOpSub, key, value).Updater().
 func Sub(key string, value interface{}) Updater {
-	return New(UpdateOpSub, key, value).Updater()
+	return Key(key).Sub(value)
 }
 
 // Mul is equal to New(UpdateOpMul, key, value).Updater().
 func Mul(key string, value interface{}) Updater {
-	return New(UpdateOpMul, key, value).Updater()
+	return Key(key).Mul(value)
 }
 
 // Div is equal to New(UpdateOpDiv, key, value).Updater().
 func Div(key string, value interface{}) Updater {
-	return New(UpdateOpDiv, key, value).Updater()
+	return Key(key).Div(value)
 }
 
 // Set is equal to New(UpdateOpSet, key, value).Updater().
 func Set(key string, value interface{}) Updater {
-	return New(UpdateOpSet, key, value).Updater()
+	return Key(key).Set(value)
 }
 
 // Inc is the same as Inc(o.Key).
