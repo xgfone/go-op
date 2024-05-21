@@ -43,7 +43,14 @@ type PageSize struct {
 	Size int64
 }
 
-// Page is equal to New(PaginationOpPage, "", PageSize{Page: page, Size: size}).Paginator().
+// Page is short of Paginate.
+//
+// DEPRECATED!!! Please use Paginate instead.
 func Page(page, size int64) Paginator {
+	return Paginate(page, size)
+}
+
+// Paginate is equal to New(PaginationOpPage, "", PageSize{Page: page, Size: size}).Paginator().
+func Paginate(page, size int64) Paginator {
 	return New(PaginationOpPage, "", PageSize{Page: page, Size: size}).Paginator()
 }
