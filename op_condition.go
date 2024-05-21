@@ -98,13 +98,13 @@ func GreaterEqual(key string, value interface{}) Condition {
 }
 
 // In is equal to Key(key).In(values...).
-func In(key string, values ...interface{}) Condition {
-	return Key(key).In(values...)
+func In(key string, values interface{}) Condition {
+	return Key(key).In(values)
 }
 
 // NotIn is equal to Key(key).NotIn(values...).
-func NotIn(key string, values ...interface{}) Condition {
-	return Key(key).NotIn(values...)
+func NotIn(key string, values interface{}) Condition {
+	return Key(key).NotIn(values)
 }
 
 // IsNull is equal to Key(key).IsNull().
@@ -198,12 +198,12 @@ func (o Op) LessEqual(value interface{}) Condition {
 }
 
 // In is equal to o.WithOp(CondOpIn).WithValue(values).Condition().
-func (o Op) In(values ...interface{}) Condition {
+func (o Op) In(values interface{}) Condition {
 	return o.WithOp(CondOpIn).WithValue(values).Condition()
 }
 
 // NotIn is equal to o.WithOp(CondOpNotIn).WithValue(values).Condition().
-func (o Op) NotIn(values ...interface{}) Condition {
+func (o Op) NotIn(values interface{}) Condition {
 	return o.WithOp(CondOpNotIn).WithValue(values).Condition()
 }
 
