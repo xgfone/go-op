@@ -98,12 +98,12 @@ func GreaterEqual(key string, value interface{}) Condition {
 }
 
 // In is equal to Key(key).In(values).
-func In(key string, values interface{}) Condition {
+func In[S ~[]T, T any](key string, values S) Condition {
 	return Key(key).In(values)
 }
 
 // NotIn is equal to Key(key).NotIn(values).
-func NotIn(key string, values interface{}) Condition {
+func NotIn[S ~[]T, T any](key string, values S) Condition {
 	return Key(key).NotIn(values)
 }
 
