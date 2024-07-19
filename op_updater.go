@@ -28,8 +28,8 @@ const (
 	UpdateOpDiv   = "Div"
 )
 
-// KeyValue represents a key-value pair.
-type KeyValue struct {
+// KV represents a key-value pair.
+type KV struct {
 	Key string
 	Val any
 }
@@ -131,22 +131,22 @@ func (o Op) Set(value any) Updater {
 	return o.WithOp(UpdateOpSet).WithValue(value).Updater()
 }
 
-// AddKey is equal to o.WithOp(UpdateOpAdd).WithValue(KeyValue{Key: key, Val: value}).Updater().
+// AddKey is equal to o.WithOp(UpdateOpAdd).WithValue(KV{Key: key, Val: value}).Updater().
 func (o Op) AddKey(key string, value any) Updater {
-	return o.WithOp(UpdateOpAdd).WithValue(KeyValue{Key: key, Val: value}).Updater()
+	return o.WithOp(UpdateOpAdd).WithValue(KV{Key: key, Val: value}).Updater()
 }
 
-// SubKey is equal to o.WithOp(UpdateOpSub).WithValue(KeyValue{Key: key, Val: value}).Updater().
+// SubKey is equal to o.WithOp(UpdateOpSub).WithValue(KV{Key: key, Val: value}).Updater().
 func (o Op) SubKey(key string, value any) Updater {
-	return o.WithOp(UpdateOpSub).WithValue(KeyValue{Key: key, Val: value}).Updater()
+	return o.WithOp(UpdateOpSub).WithValue(KV{Key: key, Val: value}).Updater()
 }
 
-// MulKey is equal to o.WithOp(UpdateOpMul).WithValue(KeyValue{Key: key, Val: value}).Updater().
+// MulKey is equal to o.WithOp(UpdateOpMul).WithValue(KV{Key: key, Val: value}).Updater().
 func (o Op) MulKey(key string, value any) Updater {
-	return o.WithOp(UpdateOpMul).WithValue(KeyValue{Key: key, Val: value}).Updater()
+	return o.WithOp(UpdateOpMul).WithValue(KV{Key: key, Val: value}).Updater()
 }
 
-// DivKey is equal to o.WithOp(UpdateOpDiv).WithValue(KeyValue{Key: key, Val: value}).Updater().
+// DivKey is equal to o.WithOp(UpdateOpDiv).WithValue(KV{Key: key, Val: value}).Updater().
 func (o Op) DivKey(key string, value any) Updater {
-	return o.WithOp(UpdateOpDiv).WithValue(KeyValue{Key: key, Val: value}).Updater()
+	return o.WithOp(UpdateOpDiv).WithValue(KV{Key: key, Val: value}).Updater()
 }
