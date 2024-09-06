@@ -1,4 +1,4 @@
-// Copyright 2023 xgfone
+// Copyright 2023~2024 xgfone
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -49,6 +49,9 @@ func Contains[S ~[]E1, E1, E2 Oper](ops S, op E2) bool {
 
 /// ----------------------------------------------------------------------- ///
 
+// Lazy is a lazy function to calculate the op lazily.
+type Lazy func(Op) Op
+
 // Op represents an operation.
 type Op struct {
 	// Required
@@ -59,6 +62,7 @@ type Op struct {
 	// Optional
 	Kind string
 	Tags map[string]string
+	Lazy Lazy
 }
 
 // Key is equal to New("", key, nil).
@@ -126,6 +130,14 @@ func (o Op) WithValue(value any) Op {
 // WithKind replaces the kind with the new and returns a new Op.
 func (o Op) WithKind(kind string) Op {
 	o.Kind = kind
+	return o
+}
+
+// WithLazy replaces the lazy function with the new and returns a new Op.
+//
+// The lazy function will be used when op is built.
+func (o Op) WithLazy(f Lazy) Op {
+	o.Lazy = f
 	return o
 }
 
