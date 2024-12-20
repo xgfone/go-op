@@ -1,16 +1,21 @@
-# Go Operation [![Build Status](https://github.com/xgfone/go-op/actions/workflows/go.yml/badge.svg)](https://github.com/xgfone/go-op/actions/workflows/go.yml) [![GoDoc](https://pkg.go.dev/badge/github.com/xgfone/go-op)](https://pkg.go.dev/github.com/xgfone/go-op) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](https://raw.githubusercontent.com/xgfone/go-op/master/LICENSE)
+# Go Operation
 
+[![Build Status](https://github.com/xgfone/go-op/actions/workflows/go.yml/badge.svg)](https://github.com/xgfone/go-op/actions/workflows/go.yml)
+[![GoDoc](https://pkg.go.dev/badge/github.com/xgfone/go-op)](https://pkg.go.dev/github.com/xgfone/go-op)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](https://raw.githubusercontent.com/xgfone/go-op/master/LICENSE)
+![Minimum Go Version](https://img.shields.io/github/go-mod/go-version/xgfone/go-op?label=Go%2B)
+![Latest SemVer](https://img.shields.io/github/v/tag/xgfone/go-op?sort=semver)
 
-Provide a common operation, such as `Condition` and `Updater`, supporting Go `1.18+`.
-
+Provide a common operation, such as `Condition` and `Updater`.
 
 ## Install
+
 ```shell
 $ go get -u github.com/xgfone/go-op
 ```
 
-
 ## Example
+
 ```go
 package main
 
