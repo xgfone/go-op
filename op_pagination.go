@@ -40,6 +40,8 @@ type PageSize struct {
 	Size int64
 }
 
+func (p PageSize) Limit() int { return int(p.Size) }
+
 // Page is short of Paginate.
 //
 // DEPRECATED!!! Please use Paginate instead.
