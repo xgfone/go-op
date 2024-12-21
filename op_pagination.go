@@ -16,8 +16,9 @@ package op
 
 // Pre-define some pagination operations.
 const (
-	KindPagination   = "Pagination"
-	PaginationOpPage = "Page"
+	KindPagination = "Pagination"
+
+	PaginationOpPageSize = "PageSize"
 )
 
 // Limiter represents a number limiter of the objects.
@@ -73,7 +74,7 @@ func Page(page, size int64) Paginator {
 	return Paginate(page, size)
 }
 
-// Paginate is equal to New(PaginationOpPage, "", PageSize{Page: page, Size: size}).Paginator().
+// Paginate is equal to New(PaginationOpPageSize, "", PageSize{Page: page, Size: size}).Paginator().
 func Paginate(page, size int64) Paginator {
-	return New(PaginationOpPage, "", PageSize{Page: page, Size: size}).Paginator()
+	return New(PaginationOpPageSize, "", PageSize{Page: page, Size: size}).Paginator()
 }
