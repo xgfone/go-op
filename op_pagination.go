@@ -20,6 +20,11 @@ const (
 	PaginationOpPage = "Page"
 )
 
+// Limiter represents a number limiter of the objects.
+type Limiter interface {
+	Limit() int
+}
+
 // Paginator represents a pagination operation.
 type Paginator interface {
 	paginate()
@@ -33,13 +38,32 @@ func (p paginator) paginate() {}
 // Paginator converts itself to Paginator.
 func (o Op) Paginator() Paginator { return paginator{oper{o.WithKind(KindPagination)}} }
 
+// GetLimitFromPaginator extracts the limit from the pagination operation.
+//
+// If p is nil or the pagination operation has not implemented Limiter, return 0.
+func GetLimitFromPaginator(p Paginator) (limit int) {
+	if p == nil {
+		return
+	}
+
+	if ps, ok := p.(Limiter); ok {
+		limit = ps.Limit()
+	} else if ps, ok := p.Op().Val.(Limiter); ok {
+		limit = ps.Limit()
+	}
+
+	return
+}
+
 /// ---------------------------------------------------------------------- ///
 
+// PageSize is a paginator based on page and size.
 type PageSize struct {
 	Page int64 // Start with 1
 	Size int64
 }
 
+// Limit implements the interface Limiter.
 func (p PageSize) Limit() int { return int(p.Size) }
 
 // Page is short of Paginate.
