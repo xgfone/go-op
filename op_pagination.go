@@ -58,23 +58,18 @@ func GetLimitFromPaginator(p Paginator) (limit int) {
 
 /// ---------------------------------------------------------------------- ///
 
-// PageSize is a paginator based on page and size.
-type PageSize struct {
+// PageSizer is a paginator based on page and size.
+type PageSizer struct {
 	Page int64 // Start with 1
 	Size int64
 }
 
 // Limit implements the interface Limiter.
-func (p PageSize) Limit() int { return int(p.Size) }
+func (p PageSizer) Limit() int { return int(p.Size) }
 
-// Page is short of Paginate.
+// PageSize is used to new a paginator based on page and size.
 //
-// DEPRECATED!!! Please use Paginate instead.
-func Page(page, size int64) Paginator {
-	return Paginate(page, size)
-}
-
-// Paginate is equal to New(PaginationOpPageSize, "", PageSize{Page: page, Size: size}).Paginator().
-func Paginate(page, size int64) Paginator {
-	return New(PaginationOpPageSize, "", PageSize{Page: page, Size: size}).Paginator()
+// The key is empty, and the value is a PageSizer instance.
+func PageSize(page, size int64) Paginator {
+	return New(PaginationOpPageSize, "", PageSizer{Page: page, Size: size}).Paginator()
 }

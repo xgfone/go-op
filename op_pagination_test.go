@@ -17,7 +17,7 @@ package op
 import "testing"
 
 func TestPageSize(t *testing.T) {
-	page := Paginate(1, 20)
+	page := PageSize(1, 20)
 
 	type Limiter interface {
 		Limit() int
