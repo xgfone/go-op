@@ -26,23 +26,29 @@ type Limiter interface {
 	Limit() int
 }
 
-// Paginator represents a pagination operation.
-type Paginator interface {
+// Pagination represents a pagination operation.
+type Pagination interface {
 	paginate()
 	Oper
 }
 
-type paginator struct{ oper }
+// Paginator is deprecated and reserved as the alias of Pagination for backward compatibility.
+type Paginator = Pagination
 
-func (p paginator) paginate() {}
+type pagination struct{ oper }
 
-// Paginator converts itself to Paginator.
-func (o Op) Paginator() Paginator { return paginator{oper{o.WithKind(KindPagination)}} }
+func (p pagination) paginate() {}
 
-// GetLimitFromPaginator extracts the limit from the pagination operation.
+// Pagination converts itself to Pagination.
+func (o Op) Pagination() Pagination { return pagination{oper{o.WithKind(KindPagination)}} }
+
+// Paginator is deprecated. Please use the Pagination method instead.
+func (o Op) Paginator() Pagination { return o.Pagination() }
+
+// GetLimitFromPagination extracts the limit from the pagination operation.
 //
 // If p is nil or the pagination operation has not implemented Limiter, return 0.
-func GetLimitFromPaginator(p Paginator) (limit int) {
+func GetLimitFromPagination(p Pagination) (limit int) {
 	if p == nil {
 		return
 	}
@@ -58,7 +64,7 @@ func GetLimitFromPaginator(p Paginator) (limit int) {
 
 /// ---------------------------------------------------------------------- ///
 
-// PageSizer is a paginator based on page and size.
+// PageSizer is a pagination based on page and size.
 type PageSizer struct {
 	Page int64 // Start with 1
 	Size int64
@@ -67,9 +73,9 @@ type PageSizer struct {
 // Limit implements the interface Limiter.
 func (p PageSizer) Limit() int { return int(p.Size) }
 
-// PageSize is used to new a paginator based on page and size.
+// PageSize is used to new a Pagination based on page and size.
 //
 // The key is empty, and the value is a PageSizer instance.
-func PageSize(page, size int64) Paginator {
-	return New(PaginationOpPageSize, "", PageSizer{Page: page, Size: size}).Paginator()
+func PageSize(page, size int64) Pagination {
+	return New(PaginationOpPageSize, "", PageSizer{Page: page, Size: size}).Pagination()
 }
