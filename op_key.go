@@ -131,6 +131,7 @@ var (
 	KeyAudio = Key("audio")
 	KeyLyric = Key("lyric")
 	KeyTheme = Key("theme")
+	KeyScene = Key("scene")
 
 	KeyTmplUrl = Key("tmpl_url")
 	KeyOrigUrl = Key("orig_url")
@@ -244,6 +245,7 @@ var (
 	KeyEmail    = Key("email")
 	KeyPhone    = Key("phone")
 	KeyMobile   = Key("mobile")
+	KeyGender   = Key("gender")
 	KeyRegion   = Key("region")
 	KeyConfig   = Key("config")
 	KeyAvatar   = Key("avatar")
