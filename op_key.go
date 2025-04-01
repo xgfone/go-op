@@ -169,6 +169,7 @@ var (
 	KeyOrigin = Key("origin")
 	KeyAction = Key("action")
 
+	KeyOrder   = Key("order")
 	KeyPrice   = Key("price")
 	KeyAmount  = Key("amount")
 	KeyCoupon  = Key("coupon")
@@ -212,7 +213,11 @@ var (
 	KeyProductData = Key("product_data")
 	KeyProductConf = Key("product_conf")
 
+	KeyScale    = Key("scale")
+	KeyWidth    = Key("width")
+	KeyHeight   = Key("height")
 	KeyWeight   = Key("weight")
+	KeyPreview  = Key("preview")
 	KeyHorizon  = Key("horizon")
 	KeyVertical = Key("vertical")
 	KeyTemplate = Key("template")
@@ -265,6 +270,7 @@ var (
 	KeyPassword = Key("password")
 	KeyBirthday = Key("birthday")
 	KeyAbnormal = Key("abnormal")
+	KeySerialNo = Key("serial_no")
 	KeyUserType = Key("user_type")
 	KeyUserKind = Key("user_kind")
 	KeyUserInfo = Key("user_info")
@@ -298,6 +304,7 @@ var (
 	KeyPercent  = Key("percent")
 	KeyVersion  = Key("version")
 	KeySeconds  = Key("seconds")
+	KeyTrigger  = Key("trigger")
 	KeyInterval = Key("interval")
 	KeyCallback = Key("callback")
 
