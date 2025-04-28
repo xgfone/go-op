@@ -32,6 +32,8 @@ type oper struct{ op Op }
 
 func (o oper) Op() Op { return o.op }
 
+func (o oper) Scope(name string) Op { return o.op.Scope(name) }
+
 // ContainsKey reports whether the operations contains the key.
 func ContainsKey[S ~[]E, E Oper](ops S, key string) bool {
 	for _, op := range ops {

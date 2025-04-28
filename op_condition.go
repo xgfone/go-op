@@ -62,11 +62,15 @@ type Boundary struct {
 type Condition interface {
 	condition()
 	Oper
+
+	Scope(name string) Condition
 }
 
 type condition struct{ oper }
 
 func (c condition) condition() {}
+
+func (c condition) Scope(name string) Condition { return c.oper.Scope(name).Condition() }
 
 // Condition converts itself to Condition.
 func (o Op) Condition() Condition { return condition{oper{o.WithKind(KindCondition)}} }
