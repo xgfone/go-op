@@ -32,18 +32,12 @@ type Pagination interface {
 	Oper
 }
 
-// Paginator is deprecated and reserved as the alias of Pagination for backward compatibility.
-type Paginator = Pagination
-
 type pagination struct{ oper }
 
 func (p pagination) paginate() {}
 
 // Pagination converts itself to Pagination.
 func (o Op) Pagination() Pagination { return pagination{oper{o.WithKind(KindPagination)}} }
-
-// Paginator is deprecated. Please use the Pagination method instead.
-func (o Op) Paginator() Pagination { return o.Pagination() }
 
 // GetLimitFromPagination extracts the limit from the pagination operation.
 //
