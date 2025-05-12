@@ -131,6 +131,11 @@ func (o Op) Set(value any) Updater {
 	return o.WithOp(UpdateOpSet).WithValue(value).Updater()
 }
 
+// SetKey is equal to o.WithOp(UpdateOpSet).WithValue(KV{Key: key}).Updater().
+func (o Op) SetKey(key string) Updater {
+	return o.WithOp(UpdateOpSet).WithValue(KV{Key: key}).Updater()
+}
+
 // AddKey is equal to o.WithOp(UpdateOpAdd).WithValue(KV{Key: key, Val: value}).Updater().
 func (o Op) AddKey(key string, value any) Updater {
 	return o.WithOp(UpdateOpAdd).WithValue(KV{Key: key, Val: value}).Updater()
