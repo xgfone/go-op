@@ -18,14 +18,23 @@ import "strings"
 
 // Pre-define some operations.
 var (
-	KeyId     = Key("id")
+	KeyId    = Key("id")
+	KeyRscId = Key("rsc_id")
+	KeySkuId = Key("sku_id")
+	KeySpuId = Key("spu_id")
+	KeyLocId = Key("loc_id")
+
 	KeyUserId = Key("user_id")
 	KeyOpenId = Key("open_id")
 	KeyTaskId = Key("task_id")
 	KeyAddrId = Key("addr_id")
 
+	KeyOwnerId  = Key("owner_id")
+	KeyPriceId  = Key("price_id")
 	KeyOrderId  = Key("order_id")
 	KeyTransId  = Key("trans_id")
+	KeyShareId  = Key("share_id")
+	KeyRefundId = Key("refund_id")
 	KeyCouponId = Key("coupon_id")
 
 	KeyTmplId  = Key("tmpl_id")
@@ -134,6 +143,7 @@ var (
 	KeyScene = Key("scene")
 	KeyPaper = Key("paper")
 
+	KeyTypeUrl = Key("type_url")
 	KeyTmplUrl = Key("tmpl_url")
 	KeyOrigUrl = Key("orig_url")
 	KeyMarkUrl = Key("mark_url")
@@ -148,6 +158,10 @@ var (
 	KeyAudioUrl = Key("audio_url")
 	KeyMusicUrl = Key("music_url")
 	KeyVideoUrl = Key("video_url")
+
+	KeyBorder    = Key("border")
+	KeyBorderUrl = Key("border_url")
+	KeyGroupName = Key("group_name")
 
 	KeyClientUrl  = Key("client_url")
 	KeyServerUrl  = Key("server_url")
@@ -171,10 +185,10 @@ var (
 	KeyAction = Key("action")
 	KeyGlobal = Key("global")
 
+	KeyShare   = Key("share")
 	KeyOrder   = Key("order")
 	KeyPrice   = Key("price")
 	KeyAmount  = Key("amount")
-	KeyCoupon  = Key("coupon")
 	KeyNumber  = Key("number")
 	KeyBalance = Key("balance")
 	KeyStorage = Key("storage")
@@ -191,6 +205,19 @@ var (
 	KeyPrizeData = Key("prize_data")
 	KeyPrizeInfo = Key("prize_info")
 	KeyPrizeType = Key("prize_type")
+
+	KeyEventCode = Key("event_code")
+	KeyEventName = Key("event_name")
+	KeyEventInfo = Key("event_info")
+	KeyEventData = Key("event_data")
+	KeyEventDesc = Key("event_desc")
+
+	KeyLat        = Key("lat")
+	KeyLong       = Key("long")
+	KeyLatitude   = Key("latitude")
+	KeyLongitude  = Key("longitude")
+	KeyLocationId = Key("location_id")
+	KeyPickupCode = Key("pickup_code")
 
 	KeyDiscount    = Key("discount")
 	KeyPayType     = Key("pay_type")
@@ -209,6 +236,7 @@ var (
 	KeyUnitPrice   = Key("unit_price")
 	KeyOrigPrice   = Key("orig_price")
 	KeyOffPrice    = Key("off_price")
+	KeyPaidCode    = Key("paid_code")
 
 	KeyPay     = Key("pay")
 	KeyPaid    = Key("paid")
@@ -218,9 +246,11 @@ var (
 	KeyPType       = Key("ptype")
 	KeyPData       = Key("pdata")
 	KeyPConf       = Key("pconf")
+	KeyPName       = Key("pname")
 	KeyProductType = Key("product_type")
 	KeyProductData = Key("product_data")
 	KeyProductConf = Key("product_conf")
+	KeyProductName = Key("product_name")
 
 	KeyScale    = Key("scale")
 	KeyWidth    = Key("width")
@@ -269,6 +299,7 @@ var (
 	KeySecret   = Key("secret")
 	KeyStreet   = Key("street")
 	KeyQrCode   = Key("qrcode")
+	KeyAccount  = Key("account")
 	KeyAliases  = Key("aliases")
 	KeyChannel  = Key("channel")
 	KeyContact  = Key("contact")
@@ -290,6 +321,47 @@ var (
 	KeyMachine     = Key("machine")
 	KeyMachineId   = Key("machine_id")
 	KeyMachineCode = Key("machine_code")
+	KeyMachineName = Key("machine_name")
+
+	KeyReceiver        = Key("receiver")
+	KeyReceiverId      = Key("receiver_id")
+	KeyReceiverKey     = Key("receiver_key")
+	KeyReceiverCode    = Key("receiver_code")
+	KeyReceiverName    = Key("receiver_name")
+	KeyReceiverEmail   = Key("receiver_email")
+	KeyReceiverPhone   = Key("receiver_phone")
+	KeyReceiverAccount = Key("receiver_account")
+	KeyReceiverAddress = Key("receiver_address")
+	KeyAccountType     = Key("account_type")
+
+	KeyService     = Key("service")
+	KeyServiceType = Key("service_type")
+	KeyServiceInfo = Key("service_info")
+
+	KeyChannelCode = Key("channel_code")
+	KeyChannelName = Key("channel_name")
+	KeyChannelType = Key("channel_type")
+
+	KeyPayment     = Key("payment")
+	KeyPaymentId   = Key("payment_id")
+	KeyPaymentCode = Key("payment_code")
+	KeyPaymentName = Key("payment_name")
+	KeyPaymentType = Key("payment_type")
+
+	KeyDepositAmount = Key("deposit_amount")
+	KeyDepositStatus = Key("deposit_status")
+
+	KeyCoupon     = Key("coupon")
+	KeyCouponCode = Key("coupon_code")
+	KeyCouponName = Key("coupon_name")
+
+	KeyDeviceId   = Key("device_id")
+	KeyDeviceCode = Key("device_code")
+	KeyDeviceName = Key("device_name")
+	KeyDeviceNote = Key("device_note")
+	KeyDeviceinfo = Key("device_info")
+	KeyDeviceKind = Key("device_kind")
+	KeyDeviceType = Key("device_type")
 
 	KeyAnswer     = Key("answer")
 	KeyAnswerId   = Key("answer_id")
@@ -323,10 +395,17 @@ var (
 	KeyInterval = Key("interval")
 	KeyCallback = Key("callback")
 
+	KeyTaskStatus   = Key("task_status")
+	KeyShareStatus  = Key("share_status")
+	KeyRefundStatus = Key("refund_status")
+	KeyReturnStatus = Key("return_status")
+
 	KeyIsShow     = Key("is_show")
 	KeyIsHidden   = Key("is_hidden")
 	KeyIsEnabled  = Key("is_enabled")
 	KeyIsDisabled = Key("is_disabled")
+	KeyIsRefunded = Key("is_refunded")
+	KeyIsSuper    = Key("is_super")
 
 	KeyTmplData = Key("tmpl_data")
 	KeyTmplConf = Key("tmpl_conf")
@@ -359,6 +438,7 @@ var (
 	KeySchdAt    = Key("schd_at")
 	KeyPaidAt    = Key("paid_at")
 	KeyStartAt   = Key("start_at")
+	KeySharedAt  = Key("shared_at")
 	KeyRefundAt  = Key("refund_at")
 	KeyCreatedAt = Key("created_at")
 	KeyUpdatedAt = Key("updated_at")
@@ -366,6 +446,8 @@ var (
 	KeyExpiredAt = Key("expired_at")
 	KeyTriggerAt = Key("trigger_at")
 
+	KeyFinishAt   = Key("finish_at")
+	KeyFinishedAt = Key("finished_at")
 	KeyRegisterAt = Key("register_at")
 )
 
